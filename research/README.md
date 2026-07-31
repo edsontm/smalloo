@@ -7,6 +7,7 @@ This workspace mirrors the experiment lifecycle defined in `.github/copilot-inst
 - One pull request should carry one scientific contribution.
 - Every experiment must preserve reproducibility assets inside the repository.
 - Negative results are first-class outputs and should be recorded, not discarded.
+- Every applied idea should use a versioned experiment slug such as `v1_better_registration` or `v2_better_registration`.
 
 ## Main Folders
 
@@ -36,3 +37,5 @@ This workspace mirrors the experiment lifecycle defined in `.github/copilot-inst
 13. Decision: accepted or rejected
 
 Use `python3 scripts/init_experiment.py --experiment-slug <slug> --title <title>` to create a new experiment scaffold.
+
+Prefer versioned slugs for all new experiment folders and reports.
