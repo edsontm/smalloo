@@ -1,0 +1,24 @@
+{
+  "runtime": {
+    "platform_system": "Darwin",
+    "accelerator": "mps",
+    "device": "mps",
+    "distributed_backend": null,
+    "num_workers": 4,
+    "pin_memory": false,
+    "amp_enabled": true,
+    "amp_dtype": "float16",
+    "torch_compile_enabled": false,
+    "notes": [
+      "Mac detected with Apple MPS available.",
+      "Disable pin_memory on MPS and keep worker count conservative."
+    ]
+  },
+  "created": [
+    "research/experiments/v1_mmb_baseline_reproduction/artifacts/runs/v1_mmb_baseline_reproduction_devsample_seed101.json",
+    "research/experiments/v1_mmb_baseline_reproduction/artifacts/runs/v1_mmb_baseline_reproduction_devsample_seed202.json",
+    "research/experiments/v1_mmb_baseline_reproduction/artifacts/runs/v1_mmb_baseline_reproduction_devsample_seed303.json",
+    "research/experiments/v1_mmb_baseline_reproduction/artifacts/runs/v1_mmb_baseline_reproduction_devsample_seed404.json",
+    "research/experiments/v1_mmb_baseline_reproduction/artifacts/runs/v1_mmb_baseline_reproduction_devsample_seed505.json"
+  ]
+}

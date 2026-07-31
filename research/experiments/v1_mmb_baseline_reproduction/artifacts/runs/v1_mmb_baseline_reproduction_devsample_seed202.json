@@ -30,17 +30,17 @@
   ],
   "runtime": {
     "platform_system": "Darwin",
-    "accelerator": "cpu",
-    "device": "cpu",
+    "accelerator": "mps",
+    "device": "mps",
     "distributed_backend": null,
-    "num_workers": 8,
+    "num_workers": 4,
     "pin_memory": false,
-    "amp_enabled": false,
-    "amp_dtype": null,
+    "amp_enabled": true,
+    "amp_dtype": "float16",
     "torch_compile_enabled": false,
     "notes": [
-      "Mac detected but MPS is unavailable; using CPU fallback.",
-      "MPS diagnostic: RuntimeError: The MPS backend is supported on macOS 14.0+. Current OS version can be queried using `sw_vers`"
+      "Mac detected with Apple MPS available.",
+      "Disable pin_memory on MPS and keep worker count conservative."
     ]
   }
 }

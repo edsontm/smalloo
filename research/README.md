@@ -1,13 +1,13 @@
 # Research Workspace
 
-This workspace mirrors the experiment lifecycle defined in `.github/copilot-instructions.md`.
+This workspace follows the repository contract in AGENTS.md and the canonical process docs in docs/ai.
 
 ## Core Rules
 
 - One pull request should carry one scientific contribution.
 - Every experiment must preserve reproducibility assets inside the repository.
 - Negative results are first-class outputs and should be recorded, not discarded.
-- Every applied idea should use a versioned experiment slug such as `v1_better_registration` or `v2_better_registration`.
+- Every applied idea should use a versioned experiment slug such as v1_better_registration or v2_better_registration.
 
 ## Main Folders
 

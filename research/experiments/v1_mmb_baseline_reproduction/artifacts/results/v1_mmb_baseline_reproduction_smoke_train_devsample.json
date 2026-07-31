@@ -1,0 +1,88 @@
+{
+  "slug": "v1_mmb_baseline_reproduction",
+  "title": "MMB Baseline Reproduction",
+  "dataset_profile": "devsample",
+  "dataset_root": "devsample",
+  "runtime": {
+    "platform_system": "Darwin",
+    "accelerator": "mps",
+    "device": "mps",
+    "distributed_backend": null,
+    "num_workers": 4,
+    "pin_memory": false,
+    "amp_enabled": true,
+    "amp_dtype": "float16",
+    "torch_compile_enabled": false,
+    "notes": [
+      "Mac detected with Apple MPS available.",
+      "Disable pin_memory on MPS and keep worker count conservative."
+    ]
+  },
+  "seeds": [
+    101,
+    202,
+    303,
+    404,
+    505
+  ],
+  "trainer": "smoke",
+  "status": "runtime_prepared",
+  "smoke_runs": [
+    {
+      "status": "completed",
+      "seed": 101,
+      "steps": 2,
+      "device_used": "mps",
+      "final_loss": 1.6482250690460205,
+      "losses": [
+        1.1925725936889648,
+        1.6482250690460205
+      ]
+    },
+    {
+      "status": "completed",
+      "seed": 202,
+      "steps": 2,
+      "device_used": "mps",
+      "final_loss": 2.28359055519104,
+      "losses": [
+        1.770509958267212,
+        2.28359055519104
+      ]
+    },
+    {
+      "status": "completed",
+      "seed": 303,
+      "steps": 2,
+      "device_used": "mps",
+      "final_loss": 1.6103122234344482,
+      "losses": [
+        1.6276183128356934,
+        1.6103122234344482
+      ]
+    },
+    {
+      "status": "completed",
+      "seed": 404,
+      "steps": 2,
+      "device_used": "mps",
+      "final_loss": 0.9496258497238159,
+      "losses": [
+        0.9752554297447205,
+        0.9496258497238159
+      ]
+    },
+    {
+      "status": "completed",
+      "seed": 505,
+      "steps": 2,
+      "device_used": "mps",
+      "final_loss": 1.1002204418182373,
+      "losses": [
+        1.2431583404541016,
+        1.1002204418182373
+      ]
+    }
+  ],
+  "next_step": "Replace the smoke loop with the real training loop while keeping SMALLOO_* as the single runtime contract."
+}

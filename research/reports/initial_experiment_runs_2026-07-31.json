@@ -1,0 +1,72 @@
+{
+  "report_name": "initial_experiment_runs",
+  "report_date": "2026-07-31",
+  "dataset_profile": "devsample",
+  "experiments": [
+    {
+      "slug": "v1_mmb_baseline_reproduction",
+      "title": "MMB Baseline Reproduction",
+      "steps": [
+        {
+          "name": "validate",
+          "status": "completed",
+          "output": "research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_validate_devsample.json"
+        },
+        {
+          "name": "materialize",
+          "status": "completed",
+          "output": "research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_materialize_devsample.json"
+        },
+        {
+          "name": "smoke_train",
+          "status": "completed",
+          "output": "research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_smoke_train_devsample.json"
+        }
+      ],
+      "runtime": {
+        "accelerator": "mps",
+        "device": "mps"
+      },
+      "smoke_summary": {
+        "seeds_total": 5,
+        "seeds_completed": 5,
+        "steps_per_seed": 2
+      }
+    },
+    {
+      "slug": "v1_better_registration_audit",
+      "title": "Better Registration Audit",
+      "steps": [
+        {
+          "name": "validate",
+          "status": "completed",
+          "output": "research/experiments/v1_better_registration_audit/artifacts/results/v1_better_registration_audit_validate_devsample.json"
+        },
+        {
+          "name": "materialize",
+          "status": "completed",
+          "output": "research/experiments/v1_better_registration_audit/artifacts/results/v1_better_registration_audit_materialize_devsample.json"
+        },
+        {
+          "name": "smoke_train",
+          "status": "completed",
+          "output": "research/experiments/v1_better_registration_audit/artifacts/results/v1_better_registration_audit_smoke_train_devsample.json"
+        }
+      ],
+      "runtime": {
+        "accelerator": "mps",
+        "device": "mps"
+      },
+      "smoke_summary": {
+        "seeds_total": 5,
+        "seeds_completed": 5,
+        "steps_per_seed": 2
+      }
+    }
+  ],
+  "notes": [
+    "This report consolidates devsample-first runs for both v1 experiments.",
+    "Smoke results validate runtime wiring and deterministic seed manifests only.",
+    "Full benchmark claims require full training/evaluation on viso profile."
+  ]
+}

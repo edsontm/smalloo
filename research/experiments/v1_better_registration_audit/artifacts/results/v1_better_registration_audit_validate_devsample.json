@@ -1,0 +1,73 @@
+{
+  "validation": {
+    "slug": "v1_better_registration_audit",
+    "dataset_profile": "devsample",
+    "experiment_dir": "research/experiments/v1_better_registration_audit",
+    "dataset_root": "devsample",
+    "missing_files": [],
+    "missing_dataset_paths": [],
+    "valid": true
+  },
+  "run_manifest": {
+    "slug": "v1_better_registration_audit",
+    "title": "Better Registration Audit",
+    "dataset_profile": "devsample",
+    "dataset_root": "devsample",
+    "dataset": {
+      "variant": "coco",
+      "subset": "ship",
+      "default_profile": "devsample",
+      "notes": [
+        "Always start with devsample before any full-dataset run on VISO.",
+        "Use the same split definitions and reporting protocol as v1_mmb_baseline_reproduction.",
+        "The controlled variable is the registration stage only."
+      ],
+      "splits": {
+        "train": {
+          "image_dir": "train2017",
+          "annotation_file": "instances_train2017.json"
+        },
+        "test": {
+          "image_dir": "test2017",
+          "annotation_file": "instances_test2017.json"
+        }
+      }
+    },
+    "baseline": "MMB + registration replacement candidate",
+    "objective": "Test whether a stronger registration stage reduces false positives and improves temporal consistency on VISO ship without changing the detector or the evaluation protocol.",
+    "seeds": [
+      101,
+      202,
+      303,
+      404,
+      505
+    ],
+    "phases": [
+      {
+        "name": "baseline_protocol_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v1_better_registration_audit --dataset-profile devsample",
+        "purpose": "Verify that the follow-up experiment inherits the same scaffold and dataset contract as the baseline."
+      },
+      {
+        "name": "follow_up_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v1_better_registration_audit --dataset-profile devsample",
+        "purpose": "Freeze run manifests for the registration-only comparison."
+      }
+    ],
+    "runtime": {
+      "platform_system": "Darwin",
+      "accelerator": "mps",
+      "device": "mps",
+      "distributed_backend": null,
+      "num_workers": 4,
+      "pin_memory": false,
+      "amp_enabled": true,
+      "amp_dtype": "float16",
+      "torch_compile_enabled": false,
+      "notes": [
+        "Mac detected with Apple MPS available.",
+        "Disable pin_memory on MPS and keep worker count conservative."
+      ]
+    }
+  }
+}
