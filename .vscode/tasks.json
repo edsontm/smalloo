@@ -1,0 +1,143 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "validate-v1-mmb-devsample",
+			"type": "shell",
+			"command": "mkdir -p research/experiments/v1_mmb_baseline_reproduction/artifacts/results && python3 scripts/validate_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample > research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_validate_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "materialize-v1-mmb-devsample",
+			"type": "shell",
+			"command": "python3 scripts/materialize_runs.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample > research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_materialize_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "smoke-v1-mmb-devsample",
+			"type": "shell",
+			"command": "python3 scripts/train_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample --trainer smoke --smoke-steps 10 > research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_smoke_train_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "validate-v1-mmb-devsample-venv",
+			"type": "shell",
+			"command": ".venv/bin/python scripts/validate_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample > research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_validate_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "materialize-v1-mmb-devsample-venv",
+			"type": "shell",
+			"command": ".venv/bin/python scripts/materialize_runs.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample > research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_materialize_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "smoke-v1-mmb-devsample-venv",
+			"type": "shell",
+			"command": ".venv/bin/python scripts/train_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample --trainer smoke --smoke-steps 2 > research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_smoke_train_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "validate-v1-better-devsample-venv",
+			"type": "shell",
+			"command": ".venv/bin/python scripts/validate_experiment.py --slug v1_better_registration_audit --dataset-profile devsample > research/experiments/v1_better_registration_audit/artifacts/results/v1_better_registration_audit_validate_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "materialize-v1-better-devsample-venv",
+			"type": "shell",
+			"command": ".venv/bin/python scripts/materialize_runs.py --slug v1_better_registration_audit --dataset-profile devsample > research/experiments/v1_better_registration_audit/artifacts/results/v1_better_registration_audit_materialize_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "smoke-v1-better-devsample-venv",
+			"type": "shell",
+			"command": ".venv/bin/python scripts/train_experiment.py --slug v1_better_registration_audit --dataset-profile devsample --trainer smoke --smoke-steps 2 > research/experiments/v1_better_registration_audit/artifacts/results/v1_better_registration_audit_smoke_train_devsample.json",
+			"group": "none"
+		},
+		{
+			"label": "check-report-json",
+			"type": "shell",
+			"command": "python3 -m json.tool research/reports/initial_experiment_runs_2026-07-31.json > /dev/null && echo OK_JSON",
+			"group": "none"
+		},
+		{
+			"label": "git-status-short",
+			"type": "shell",
+			"command": "git status --short",
+			"group": "none"
+		},
+		{
+			"label": "git-context",
+			"type": "shell",
+			"command": "git status --short && git branch --show-current && git remote -v",
+			"group": "none"
+		},
+		{
+			"label": "git-log-top",
+			"type": "shell",
+			"command": "git --no-pager log --oneline -5",
+			"group": "none"
+		},
+		{
+			"label": "git-stage-no-vscode",
+			"type": "shell",
+			"command": "git add -A && git reset -- .vscode",
+			"group": "none"
+		},
+		{
+			"label": "git-status-staged",
+			"type": "shell",
+			"command": "git status --short",
+			"group": "none"
+		},
+		{
+			"label": "git-commit-bootstrap",
+			"type": "shell",
+			"command": "git commit -m \"Bootstrap AI-native docs contract and add v1 devsample run artifacts\"",
+			"group": "none"
+		},
+		{
+			"label": "git-push-main",
+			"type": "shell",
+			"command": "git push origin main",
+			"group": "none"
+		},
+		{
+			"label": "git-final-status",
+			"type": "shell",
+			"command": "git status --short && git --no-pager log --oneline -2",
+			"group": "none"
+		},
+		{
+			"label": "verify-git-sync",
+			"type": "shell",
+			"command": "git status --short && echo '---' && git rev-list --left-right --count origin/main...HEAD && echo '---' && git --no-pager log --oneline -1",
+			"group": "none"
+		},
+		{
+			"label": "verify-untracked-files",
+			"type": "shell",
+			"command": "git ls-files --others --exclude-standard",
+			"group": "none"
+		},
+		{
+			"label": "compare-old-new-experiments-1",
+			"type": "shell",
+			"command": "diff -qr research/experiments/better-registration-audit research/experiments/v1_better_registration_audit || true",
+			"group": "none"
+		},
+		{
+			"label": "compare-old-new-experiments-2",
+			"type": "shell",
+			"command": "diff -qr research/experiments/mmb-baseline-reproduction research/experiments/v1_mmb_baseline_reproduction || true",
+			"group": "none"
+		},
+		{
+			"label": "git-add-all",
+			"type": "shell",
+			"command": "git add -A && git status --short",
+			"group": "none"
+		}
+	]
+}
