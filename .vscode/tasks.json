@@ -138,6 +138,30 @@
 			"type": "shell",
 			"command": "git add -A && git status --short",
 			"group": "none"
+		},
+		{
+			"label": "git-commit-all",
+			"type": "shell",
+			"command": "git commit -m \"Add remaining experiment directories and local workspace files\" || true",
+			"group": "none"
+		},
+		{
+			"label": "git-push-all",
+			"type": "shell",
+			"command": "git push origin main",
+			"group": "none"
+		},
+		{
+			"label": "git-verify-clean",
+			"type": "shell",
+			"command": "git status --short && echo '---' && git rev-list --left-right --count origin/main...HEAD && echo '---' && git --no-pager log --oneline -2",
+			"group": "none"
+		},
+		{
+			"label": "git-commit-final-tasksjson",
+			"type": "shell",
+			"command": "git add .vscode/tasks.json && git commit -m \"Update VS Code tasks after repository sync\"",
+			"group": "none"
 		}
 	]
 }
