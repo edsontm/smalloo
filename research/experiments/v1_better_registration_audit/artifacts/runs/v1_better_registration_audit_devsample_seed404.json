@@ -1,0 +1,36 @@
+{
+  "slug": "v1_better_registration_audit",
+  "title": "Better Registration Audit",
+  "dataset_profile": "devsample",
+  "dataset_root": "devsample",
+  "seed": 404,
+  "baseline": "MMB + registration replacement candidate",
+  "objective": "Test whether a stronger registration stage reduces false positives and improves temporal consistency on VISO ship without changing the detector or the evaluation protocol.",
+  "phases": [
+    {
+      "name": "baseline_protocol_validation",
+      "entrypoint": "python3 scripts/validate_experiment.py --slug v1_better_registration_audit --dataset-profile devsample",
+      "purpose": "Verify that the follow-up experiment inherits the same scaffold and dataset contract as the baseline."
+    },
+    {
+      "name": "follow_up_manifest_generation",
+      "entrypoint": "python3 scripts/materialize_runs.py --slug v1_better_registration_audit --dataset-profile devsample",
+      "purpose": "Freeze run manifests for the registration-only comparison."
+    }
+  ],
+  "runtime": {
+    "platform_system": "Darwin",
+    "accelerator": "cpu",
+    "device": "cpu",
+    "distributed_backend": null,
+    "num_workers": 8,
+    "pin_memory": false,
+    "amp_enabled": false,
+    "amp_dtype": null,
+    "torch_compile_enabled": false,
+    "notes": [
+      "Mac detected but MPS is unavailable; using CPU fallback.",
+      "MPS diagnostic: RuntimeError: The MPS backend is supported on macOS 14.0+. Current OS version can be queried using `sw_vers`"
+    ]
+  }
+}

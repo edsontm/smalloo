@@ -281,6 +281,32 @@ Always search for missing ideas.
 
 Maintain a continuously updated ranked backlog.
 
+Every applied idea must create an explicit versioned experiment line.
+
+Use incremental versioned names such as
+
+v1_idea1
+
+v2_idea1
+
+v3_idea1
+
+or, when a descriptive slug is clearer,
+
+v1_better_registration
+
+v2_better_registration
+
+v3_better_registration
+
+Rules
+
+- never overwrite an older idea version
+- every substantial modification becomes a new version
+- keep earlier versions for comparison, ablation, and failure analysis
+- treat each version as a separate experimental artifact with its own config, report, and decision
+- if a new version extends a previous one, explicitly reference the parent version
+
 Each idea has
 
 Title
@@ -348,6 +374,18 @@ Choose the one with the highest expected scientific return.
 Every Pull Request
 
 must contain exactly ONE scientific contribution.
+
+Every implemented idea version must map to exactly one versioned experiment name.
+
+Do not use ambiguous names like
+
+registration_fix
+
+new_model
+
+test_final
+
+Use versioned names instead.
 
 No mixed experiments.
 

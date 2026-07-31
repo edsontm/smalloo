@@ -39,6 +39,7 @@ This workspace mirrors the experiment lifecycle defined in `.github/copilot-inst
 - One pull request should carry one scientific contribution.
 - Every experiment must preserve reproducibility assets inside the repository.
 - Negative results are first-class outputs and should be recorded, not discarded.
+- Applied ideas should use explicit versioned experiment names such as `v1_better_registration`, `v2_better_registration`, or `v1_temporal_consistency`.
 
 ## Main Folders
 
@@ -68,6 +69,8 @@ This workspace mirrors the experiment lifecycle defined in `.github/copilot-inst
 13. Decision: accepted or rejected
 
 Use `python3 scripts/init_experiment.py --experiment-slug <slug> --title <title>` to create a new experiment scaffold.
+
+Prefer versioned slugs such as `v1_better_registration` instead of ambiguous names.
 """,
     'research/knowledge.md': """# Knowledge Base
 
@@ -102,10 +105,22 @@ Rank ideas by expected scientific impact, not engineering convenience.
 Run:
 
 ```bash
-python3 scripts/init_experiment.py --experiment-slug my-experiment --title "My Experiment"
+python3 scripts/init_experiment.py --experiment-slug v1_my_idea --title "V1 My Idea"
 ```
 
 This creates the base research tree if needed and scaffolds a new experiment under `research/experiments/`.
+
+## Naming rule
+
+Use versioned experiment slugs for every applied idea.
+
+Examples:
+
+- `v1_better_registration`
+- `v2_better_registration`
+- `v1_temporal_consistency`
+
+If an idea changes substantially, create a new version instead of overwriting the previous experiment.
 
 ## Minimum completion criteria
 
@@ -128,6 +143,7 @@ EXPERIMENT_FILES: Dict[str, str] = {
 - Created: `{created}`
 - Status: Planning
 - Scientific contribution scope: One hypothesis only
+- Version lineage: record parent experiment if this is `v2_...` or later
 
 ## Objective
 

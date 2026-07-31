@@ -23,13 +23,13 @@ from src.training_loop import run_training_smoke
 
 class ExperimentConfigTests(unittest.TestCase):
     def test_validate_mmb_devsample(self) -> None:
-        validation = validate_experiment('mmb-baseline-reproduction', 'devsample')
+        validation = validate_experiment('v1_mmb_baseline_reproduction', 'devsample')
         self.assertTrue(validation['valid'])
         self.assertEqual(validation['missing_files'], [])
         self.assertEqual(validation['missing_dataset_paths'], [])
 
     def test_build_run_manifest_contains_expected_seeds(self) -> None:
-        manifest = build_run_manifest('mmb-baseline-reproduction', 'viso')
+        manifest = build_run_manifest('v1_mmb_baseline_reproduction', 'viso')
         self.assertEqual(manifest['seeds'], [101, 202, 303, 404, 505])
         self.assertEqual(manifest['dataset']['subset'], 'ship')
         self.assertIn('runtime', manifest)
@@ -40,7 +40,7 @@ class ExperimentConfigTests(unittest.TestCase):
             sys.executable,
             str(ROOT / 'scripts' / 'materialize_runs.py'),
             '--slug',
-            'mmb-baseline-reproduction',
+            'v1_mmb_baseline_reproduction',
             '--dataset-profile',
             'devsample',
         ]
