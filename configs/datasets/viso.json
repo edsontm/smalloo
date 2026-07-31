@@ -1,0 +1,5 @@
+{
+  "name": "viso",
+  "description": "Full dataset root. Use this profile for benchmark runs on the original dataset tree.",
+  "root_dir": "VISO"
+}

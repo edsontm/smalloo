@@ -1,0 +1,42 @@
+{
+  "experiment": {
+    "slug": "better-registration-audit",
+    "title": "Better Registration Audit",
+    "baseline": "MMB + registration replacement candidate",
+    "objective": "Test whether a stronger registration stage reduces false positives and improves temporal consistency on VISO ship without changing the detector or the evaluation protocol."
+  },
+  "dataset": {
+    "variant": "coco",
+    "subset": "ship",
+    "default_profile": "viso",
+    "notes": [
+      "Use the same split definitions and reporting protocol as mmb-baseline-reproduction.",
+      "The controlled variable is the registration stage only."
+    ],
+    "splits": {
+      "train": {
+        "image_dir": "train2017",
+        "annotation_file": "instances_train2017.json"
+      },
+      "test": {
+        "image_dir": "test2017",
+        "annotation_file": "instances_test2017.json"
+      }
+    }
+  },
+  "execution": {
+    "seeds": [101, 202, 303, 404, 505],
+    "phases": [
+      {
+        "name": "baseline_protocol_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug better-registration-audit --dataset-profile devsample",
+        "purpose": "Verify that the follow-up experiment inherits the same scaffold and dataset contract as the baseline."
+      },
+      {
+        "name": "follow_up_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug better-registration-audit --dataset-profile devsample",
+        "purpose": "Freeze run manifests for the registration-only comparison."
+      }
+    ]
+  }
+}

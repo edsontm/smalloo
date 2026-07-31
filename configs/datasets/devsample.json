@@ -1,0 +1,5 @@
+{
+  "name": "devsample",
+  "description": "Development-sized mirror of VISO for smoke tests and iteration.",
+  "root_dir": "devsample"
+}
