@@ -2,3 +2,6 @@
 /VISO/
 /devsample/
 /.venv/
+__pycache__/
+*.py[cod]
+.tmp_*.py
