@@ -1,0 +1,57 @@
+{
+  "no_stabilization": {
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "metrics": {
+      "precision": 0.02606310013717421,
+      "recall": 0.7916666666666666,
+      "f1": 0.050464807436918994,
+      "tp": 19,
+      "fp": 710,
+      "fn": 5
+    },
+    "predictions": 729,
+    "evaluated_images": 24,
+    "visual_dir": "/Users/edsontm/dev/smalloo/research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/debug/devsample_visuals_no_stabilization"
+  },
+  "with_stabilization": {
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": true,
+      "stabilize_max_step_shift": 20.0
+    },
+    "metrics": {
+      "precision": 0.019756838905775075,
+      "recall": 0.5416666666666666,
+      "f1": 0.03812316715542522,
+      "tp": 13,
+      "fp": 645,
+      "fn": 11
+    },
+    "predictions": 658,
+    "evaluated_images": 24,
+    "visual_dir": "/Users/edsontm/dev/smalloo/research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/debug/devsample_visuals_with_stabilization"
+  }
+}

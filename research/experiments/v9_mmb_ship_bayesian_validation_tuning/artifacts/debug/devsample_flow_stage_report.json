@@ -1,0 +1,90 @@
+{
+  "frames_loaded": 24,
+  "usable_images": 24,
+  "ground_truth_annotations": 24,
+  "predictions": 326,
+  "metrics": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "ap": 0.0,
+    "mAP": 0.0,
+    "tp": 0,
+    "fp": 326,
+    "fn": 24
+  },
+  "stages": {
+    "amfd": {
+      "total": 435,
+      "mean_per_frame": 18.125,
+      "frames_with_any": 22,
+      "max_per_frame": 26,
+      "first10": [
+        0,
+        17,
+        21,
+        26,
+        23,
+        21,
+        26,
+        22,
+        14,
+        13
+      ]
+    },
+    "lrmc": {
+      "total": 116,
+      "mean_per_frame": 4.833333333333333,
+      "frames_with_any": 21,
+      "max_per_frame": 11,
+      "first10": [
+        0,
+        9,
+        1,
+        5,
+        5,
+        4,
+        3,
+        11,
+        0,
+        1
+      ]
+    },
+    "merged": {
+      "total": 551,
+      "mean_per_frame": 22.958333333333332,
+      "frames_with_any": 23,
+      "max_per_frame": 33,
+      "first10": [
+        0,
+        26,
+        22,
+        31,
+        28,
+        25,
+        29,
+        33,
+        14,
+        14
+      ]
+    },
+    "pf": {
+      "total": 326,
+      "mean_per_frame": 13.583333333333334,
+      "frames_with_any": 23,
+      "max_per_frame": 28,
+      "first10": [
+        0,
+        9,
+        13,
+        21,
+        20,
+        20,
+        15,
+        15,
+        10,
+        9
+      ]
+    }
+  }
+}

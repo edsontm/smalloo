@@ -1,0 +1,9 @@
+{
+  "mean_best_iou": 0.3561295683570673,
+  "mean_best_overlap": 0.5861004003050495,
+  "gt_with_iou_ge_01": 19,
+  "gt_with_iou_ge_03": 15,
+  "gt_with_overlap_ge_03": 19,
+  "gt_with_overlap_ge_05": 15,
+  "num_gt": 24
+}

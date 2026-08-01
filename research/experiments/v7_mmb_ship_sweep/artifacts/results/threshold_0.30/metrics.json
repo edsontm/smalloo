@@ -1,0 +1,30 @@
+{
+  "detection": {
+    "precision": 0.002617801047120419,
+    "recall": 0.03125,
+    "ap": 0.015625,
+    "f1": 0.004830917874396135,
+    "false_alarms": 381.0,
+    "tp": 1.0,
+    "fp": 381.0,
+    "fn": 31.0
+  },
+  "tracking": {
+    "num_tracks": 0.0,
+    "mean_track_length": 0.0,
+    "mota": 0.0,
+    "motp": 0.0,
+    "idf1": 0.0,
+    "id_switches": 0.0
+  },
+  "num_frames": 32,
+  "temporal_windows": [
+    1,
+    2,
+    3
+  ],
+  "robust_matrix_completion": {
+    "iterations": 24,
+    "residual_norm": 6.972118778129862e-06
+  }
+}

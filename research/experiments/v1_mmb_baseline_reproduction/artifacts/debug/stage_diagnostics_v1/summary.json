@@ -1,0 +1,28 @@
+{
+  "slug": "v1_mmb_baseline_reproduction",
+  "dataset": "VISO/coco/ship/test2017",
+  "max_images": 20,
+  "frames_written": 20,
+  "stages": {
+    "amfd": {
+      "dir": "/Users/edsontm/dev/smalloo/research/experiments/v1_mmb_baseline_reproduction/artifacts/debug/stage_diagnostics_v1/amfd",
+      "mean_components_per_frame": 7.55,
+      "max_components_per_frame": 13
+    },
+    "lrmc": {
+      "dir": "/Users/edsontm/dev/smalloo/research/experiments/v1_mmb_baseline_reproduction/artifacts/debug/stage_diagnostics_v1/lrmc",
+      "mean_components_per_frame": 4.7,
+      "max_components_per_frame": 18
+    },
+    "merged": {
+      "dir": "/Users/edsontm/dev/smalloo/research/experiments/v1_mmb_baseline_reproduction/artifacts/debug/stage_diagnostics_v1/merged",
+      "mean_components_per_frame": 12.25,
+      "max_components_per_frame": 23
+    },
+    "pf": {
+      "dir": "/Users/edsontm/dev/smalloo/research/experiments/v1_mmb_baseline_reproduction/artifacts/debug/stage_diagnostics_v1/pf",
+      "mean_components_per_frame": 11.75,
+      "max_components_per_frame": 26
+    }
+  }
+}

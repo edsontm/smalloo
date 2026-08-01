@@ -1,0 +1,305 @@
+{
+  "dataset_root": "/Users/edsontm/dev/smalloo/devsample/coco/ship",
+  "annotations_path": "/Users/edsontm/dev/smalloo/devsample/coco/ship/Annotations/instances_train2017.json",
+  "image_dir": "/Users/edsontm/dev/smalloo/devsample/coco/ship/train2017",
+  "frames_loaded": 24,
+  "ground_truth_annotations": 24,
+  "predictions": 729,
+  "metrics": {
+    "precision": 0.02606310013717421,
+    "recall": 0.7916666666666666,
+    "f1": 0.050464807436918994,
+    "tp": 19,
+    "fp": 710,
+    "fn": 5
+  },
+  "intervention": {
+    "amfd_k": 4.0,
+    "lrmc_l": 4,
+    "lrmc_k": 2.5,
+    "pf_length": 5,
+    "pf_radius": 7.0,
+    "pf_min_occurrences": 3,
+    "component_min_area": 5,
+    "component_max_area": 280,
+    "component_min_aspect_ratio": 0.4,
+    "component_max_aspect_ratio": 10.0,
+    "score": 0.95
+  },
+  "stage_summaries": [
+    {
+      "stage": "amfd",
+      "total": 665,
+      "mean_per_frame": 27.708333333333332,
+      "median_per_frame": 29.0,
+      "frames_with_any": 22,
+      "max_per_frame": 40
+    },
+    {
+      "stage": "lrmc",
+      "total": 258,
+      "mean_per_frame": 10.75,
+      "median_per_frame": 11.0,
+      "frames_with_any": 23,
+      "max_per_frame": 18
+    },
+    {
+      "stage": "merged",
+      "total": 923,
+      "mean_per_frame": 38.458333333333336,
+      "median_per_frame": 41.0,
+      "frames_with_any": 23,
+      "max_per_frame": 55
+    },
+    {
+      "stage": "pf",
+      "total": 729,
+      "mean_per_frame": 30.375,
+      "median_per_frame": 31.5,
+      "frames_with_any": 23,
+      "max_per_frame": 46
+    }
+  ],
+  "frame_stats": [
+    {
+      "frame_index": 0,
+      "image_id": 19000001,
+      "amfd_count": 0,
+      "lrmc_count": 0,
+      "merged_count": 0,
+      "pf_count": 0,
+      "gt_count": 1,
+      "pred_count": 0
+    },
+    {
+      "frame_index": 1,
+      "image_id": 19000011,
+      "amfd_count": 33,
+      "lrmc_count": 16,
+      "merged_count": 49,
+      "pf_count": 21,
+      "gt_count": 1,
+      "pred_count": 21
+    },
+    {
+      "frame_index": 2,
+      "image_id": 19000022,
+      "amfd_count": 22,
+      "lrmc_count": 3,
+      "merged_count": 25,
+      "pf_count": 20,
+      "gt_count": 1,
+      "pred_count": 20
+    },
+    {
+      "frame_index": 3,
+      "image_id": 19000032,
+      "amfd_count": 29,
+      "lrmc_count": 8,
+      "merged_count": 37,
+      "pf_count": 27,
+      "gt_count": 1,
+      "pred_count": 27
+    },
+    {
+      "frame_index": 4,
+      "image_id": 19000042,
+      "amfd_count": 28,
+      "lrmc_count": 8,
+      "merged_count": 36,
+      "pf_count": 32,
+      "gt_count": 1,
+      "pred_count": 32
+    },
+    {
+      "frame_index": 5,
+      "image_id": 19000053,
+      "amfd_count": 27,
+      "lrmc_count": 5,
+      "merged_count": 32,
+      "pf_count": 30,
+      "gt_count": 1,
+      "pred_count": 30
+    },
+    {
+      "frame_index": 6,
+      "image_id": 19000063,
+      "amfd_count": 40,
+      "lrmc_count": 11,
+      "merged_count": 51,
+      "pf_count": 42,
+      "gt_count": 1,
+      "pred_count": 42
+    },
+    {
+      "frame_index": 7,
+      "image_id": 19000073,
+      "amfd_count": 35,
+      "lrmc_count": 18,
+      "merged_count": 53,
+      "pf_count": 36,
+      "gt_count": 1,
+      "pred_count": 36
+    },
+    {
+      "frame_index": 8,
+      "image_id": 19000083,
+      "amfd_count": 32,
+      "lrmc_count": 9,
+      "merged_count": 41,
+      "pf_count": 36,
+      "gt_count": 1,
+      "pred_count": 36
+    },
+    {
+      "frame_index": 9,
+      "image_id": 19000094,
+      "amfd_count": 32,
+      "lrmc_count": 11,
+      "merged_count": 43,
+      "pf_count": 37,
+      "gt_count": 1,
+      "pred_count": 37
+    },
+    {
+      "frame_index": 10,
+      "image_id": 19000104,
+      "amfd_count": 28,
+      "lrmc_count": 10,
+      "merged_count": 38,
+      "pf_count": 28,
+      "gt_count": 1,
+      "pred_count": 28
+    },
+    {
+      "frame_index": 11,
+      "image_id": 19000114,
+      "amfd_count": 25,
+      "lrmc_count": 3,
+      "merged_count": 28,
+      "pf_count": 22,
+      "gt_count": 1,
+      "pred_count": 22
+    },
+    {
+      "frame_index": 12,
+      "image_id": 19000125,
+      "amfd_count": 30,
+      "lrmc_count": 11,
+      "merged_count": 41,
+      "pf_count": 33,
+      "gt_count": 1,
+      "pred_count": 33
+    },
+    {
+      "frame_index": 13,
+      "image_id": 19000135,
+      "amfd_count": 25,
+      "lrmc_count": 10,
+      "merged_count": 35,
+      "pf_count": 31,
+      "gt_count": 1,
+      "pred_count": 31
+    },
+    {
+      "frame_index": 14,
+      "image_id": 19000145,
+      "amfd_count": 32,
+      "lrmc_count": 9,
+      "merged_count": 41,
+      "pf_count": 36,
+      "gt_count": 1,
+      "pred_count": 36
+    },
+    {
+      "frame_index": 15,
+      "image_id": 19000156,
+      "amfd_count": 25,
+      "lrmc_count": 11,
+      "merged_count": 36,
+      "pf_count": 31,
+      "gt_count": 1,
+      "pred_count": 31
+    },
+    {
+      "frame_index": 16,
+      "image_id": 19000166,
+      "amfd_count": 31,
+      "lrmc_count": 12,
+      "merged_count": 43,
+      "pf_count": 40,
+      "gt_count": 1,
+      "pred_count": 40
+    },
+    {
+      "frame_index": 17,
+      "image_id": 19000176,
+      "amfd_count": 33,
+      "lrmc_count": 14,
+      "merged_count": 47,
+      "pf_count": 45,
+      "gt_count": 1,
+      "pred_count": 45
+    },
+    {
+      "frame_index": 18,
+      "image_id": 19000187,
+      "amfd_count": 38,
+      "lrmc_count": 17,
+      "merged_count": 55,
+      "pf_count": 46,
+      "gt_count": 1,
+      "pred_count": 46
+    },
+    {
+      "frame_index": 19,
+      "image_id": 19000197,
+      "amfd_count": 29,
+      "lrmc_count": 10,
+      "merged_count": 39,
+      "pf_count": 35,
+      "gt_count": 1,
+      "pred_count": 35
+    },
+    {
+      "frame_index": 20,
+      "image_id": 19000207,
+      "amfd_count": 36,
+      "lrmc_count": 16,
+      "merged_count": 52,
+      "pf_count": 30,
+      "gt_count": 1,
+      "pred_count": 30
+    },
+    {
+      "frame_index": 21,
+      "image_id": 19000218,
+      "amfd_count": 28,
+      "lrmc_count": 14,
+      "merged_count": 42,
+      "pf_count": 34,
+      "gt_count": 1,
+      "pred_count": 34
+    },
+    {
+      "frame_index": 22,
+      "image_id": 19000228,
+      "amfd_count": 27,
+      "lrmc_count": 15,
+      "merged_count": 42,
+      "pf_count": 25,
+      "gt_count": 1,
+      "pred_count": 25
+    },
+    {
+      "frame_index": 23,
+      "image_id": 19000238,
+      "amfd_count": 0,
+      "lrmc_count": 17,
+      "merged_count": 17,
+      "pf_count": 12,
+      "gt_count": 1,
+      "pred_count": 12
+    }
+  ]
+}

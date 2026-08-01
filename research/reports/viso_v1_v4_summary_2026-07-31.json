@@ -1,0 +1,86 @@
+{
+  "profile": "viso",
+  "steps": 8,
+  "rows": [
+    {
+      "slug": "v1_mmb_baseline_reproduction",
+      "strategy": "baseline_proxy",
+      "status": "completed",
+      "seeds": [
+        101,
+        202,
+        303,
+        404,
+        505
+      ],
+      "precision": 0.833997679386793,
+      "recall": 0.9035128805620609,
+      "f1": 0.8672879992328658,
+      "ap": 0.8759481901205876,
+      "mAP": 0.9035128805620609,
+      "tp": 385.8,
+      "fp": 76.8,
+      "fn": 41.2
+    },
+    {
+      "slug": "v2_mmb_tiling_overlap",
+      "strategy": "tiling_overlap",
+      "status": "completed",
+      "seeds": [
+        101,
+        202,
+        303,
+        404,
+        505
+      ],
+      "precision": 0.8648812146553517,
+      "recall": 0.9175644028103045,
+      "f1": 0.8903813957379559,
+      "ap": 0.8964939472419844,
+      "mAP": 0.9175644028103045,
+      "tp": 391.8,
+      "fp": 61.2,
+      "fn": 35.2
+    },
+    {
+      "slug": "v3_mmb_threshold_nms_calibration",
+      "strategy": "threshold_nms_calibration",
+      "status": "completed",
+      "seeds": [
+        101,
+        202,
+        303,
+        404,
+        505
+      ],
+      "precision": 0.9127966162659729,
+      "recall": 0.8149882903981265,
+      "f1": 0.8609411334361845,
+      "ap": 0.7886019900089996,
+      "mAP": 0.8149882903981265,
+      "tp": 348,
+      "fp": 33.2,
+      "fn": 79
+    },
+    {
+      "slug": "v4_mmb_hard_negative_mining",
+      "strategy": "hard_negative_mining",
+      "status": "completed",
+      "seeds": [
+        101,
+        202,
+        303,
+        404,
+        505
+      ],
+      "precision": 0.910201850039545,
+      "recall": 0.906791569086651,
+      "f1": 0.9083870549863887,
+      "ap": 0.9045722098266095,
+      "mAP": 0.906791569086651,
+      "tp": 387.2,
+      "fp": 38.2,
+      "fn": 39.8
+    }
+  ]
+}

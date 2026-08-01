@@ -1,0 +1,1006 @@
+{
+  "timestamp_utc": "2026-07-31T07:36:16.885484+00:00",
+  "experiment_slug": "v1_mmb_baseline_reproduction",
+  "dataset_profile": "viso",
+  "evaluation_mode": "mmb_proxy",
+  "dataset_summary": {
+    "images": 351,
+    "annotations": 427,
+    "categories_present": [
+      0
+    ]
+  },
+  "seeds": [
+    101,
+    202,
+    303,
+    404,
+    505
+  ],
+  "per_seed": [
+    {
+      "seed": 101,
+      "total_gt": 427,
+      "total_fp": 72,
+      "total_fn": 33,
+      "images_with_fp": 72,
+      "images_with_fn": 32,
+      "top_fp_images": [
+        {
+          "image_id": 19000271,
+          "fp": 1,
+          "file_name": "000271.jpg"
+        },
+        {
+          "image_id": 19000324,
+          "fp": 1,
+          "file_name": "000324.jpg"
+        },
+        {
+          "image_id": 19000092,
+          "fp": 1,
+          "file_name": "000092.jpg"
+        },
+        {
+          "image_id": 19000146,
+          "fp": 1,
+          "file_name": "000146.jpg"
+        },
+        {
+          "image_id": 19000349,
+          "fp": 1,
+          "file_name": "000349.jpg"
+        },
+        {
+          "image_id": 19000275,
+          "fp": 1,
+          "file_name": "000275.jpg"
+        },
+        {
+          "image_id": 19000022,
+          "fp": 1,
+          "file_name": "000022.jpg"
+        },
+        {
+          "image_id": 19000126,
+          "fp": 1,
+          "file_name": "000126.jpg"
+        },
+        {
+          "image_id": 19000206,
+          "fp": 1,
+          "file_name": "000206.jpg"
+        },
+        {
+          "image_id": 19000155,
+          "fp": 1,
+          "file_name": "000155.jpg"
+        }
+      ],
+      "top_fn_images": [
+        {
+          "image_id": 19000325,
+          "fn": 2,
+          "file_name": "000325.jpg"
+        },
+        {
+          "image_id": 19000003,
+          "fn": 1,
+          "file_name": "000003.jpg"
+        },
+        {
+          "image_id": 19000009,
+          "fn": 1,
+          "file_name": "000009.jpg"
+        },
+        {
+          "image_id": 19000022,
+          "fn": 1,
+          "file_name": "000022.jpg"
+        },
+        {
+          "image_id": 19000037,
+          "fn": 1,
+          "file_name": "000037.jpg"
+        },
+        {
+          "image_id": 19000048,
+          "fn": 1,
+          "file_name": "000048.jpg"
+        },
+        {
+          "image_id": 19000049,
+          "fn": 1,
+          "file_name": "000049.jpg"
+        },
+        {
+          "image_id": 19000056,
+          "fn": 1,
+          "file_name": "000056.jpg"
+        },
+        {
+          "image_id": 19000058,
+          "fn": 1,
+          "file_name": "000058.jpg"
+        },
+        {
+          "image_id": 19000061,
+          "fn": 1,
+          "file_name": "000061.jpg"
+        }
+      ]
+    },
+    {
+      "seed": 202,
+      "total_gt": 427,
+      "total_fp": 84,
+      "total_fn": 43,
+      "images_with_fp": 84,
+      "images_with_fn": 42,
+      "top_fp_images": [
+        {
+          "image_id": 19000288,
+          "fp": 1,
+          "file_name": "000288.jpg"
+        },
+        {
+          "image_id": 19000176,
+          "fp": 1,
+          "file_name": "000176.jpg"
+        },
+        {
+          "image_id": 19000323,
+          "fp": 1,
+          "file_name": "000323.jpg"
+        },
+        {
+          "image_id": 19000098,
+          "fp": 1,
+          "file_name": "000098.jpg"
+        },
+        {
+          "image_id": 19000061,
+          "fp": 1,
+          "file_name": "000061.jpg"
+        },
+        {
+          "image_id": 19000275,
+          "fp": 1,
+          "file_name": "000275.jpg"
+        },
+        {
+          "image_id": 19000345,
+          "fp": 1,
+          "file_name": "000345.jpg"
+        },
+        {
+          "image_id": 19000085,
+          "fp": 1,
+          "file_name": "000085.jpg"
+        },
+        {
+          "image_id": 19000201,
+          "fp": 1,
+          "file_name": "000201.jpg"
+        },
+        {
+          "image_id": 19000343,
+          "fp": 1,
+          "file_name": "000343.jpg"
+        }
+      ],
+      "top_fn_images": [
+        {
+          "image_id": 19000326,
+          "fn": 2,
+          "file_name": "000326.jpg"
+        },
+        {
+          "image_id": 19000016,
+          "fn": 1,
+          "file_name": "000016.jpg"
+        },
+        {
+          "image_id": 19000020,
+          "fn": 1,
+          "file_name": "000020.jpg"
+        },
+        {
+          "image_id": 19000046,
+          "fn": 1,
+          "file_name": "000046.jpg"
+        },
+        {
+          "image_id": 19000050,
+          "fn": 1,
+          "file_name": "000050.jpg"
+        },
+        {
+          "image_id": 19000073,
+          "fn": 1,
+          "file_name": "000073.jpg"
+        },
+        {
+          "image_id": 19000076,
+          "fn": 1,
+          "file_name": "000076.jpg"
+        },
+        {
+          "image_id": 19000083,
+          "fn": 1,
+          "file_name": "000083.jpg"
+        },
+        {
+          "image_id": 19000090,
+          "fn": 1,
+          "file_name": "000090.jpg"
+        },
+        {
+          "image_id": 19000093,
+          "fn": 1,
+          "file_name": "000093.jpg"
+        }
+      ]
+    },
+    {
+      "seed": 303,
+      "total_gt": 427,
+      "total_fp": 79,
+      "total_fn": 55,
+      "images_with_fp": 79,
+      "images_with_fn": 51,
+      "top_fp_images": [
+        {
+          "image_id": 19000128,
+          "fp": 1,
+          "file_name": "000128.jpg"
+        },
+        {
+          "image_id": 19000011,
+          "fp": 1,
+          "file_name": "000011.jpg"
+        },
+        {
+          "image_id": 19000018,
+          "fp": 1,
+          "file_name": "000018.jpg"
+        },
+        {
+          "image_id": 19000198,
+          "fp": 1,
+          "file_name": "000198.jpg"
+        },
+        {
+          "image_id": 19000069,
+          "fp": 1,
+          "file_name": "000069.jpg"
+        },
+        {
+          "image_id": 19000024,
+          "fp": 1,
+          "file_name": "000024.jpg"
+        },
+        {
+          "image_id": 19000278,
+          "fp": 1,
+          "file_name": "000278.jpg"
+        },
+        {
+          "image_id": 19000344,
+          "fp": 1,
+          "file_name": "000344.jpg"
+        },
+        {
+          "image_id": 19000309,
+          "fp": 1,
+          "file_name": "000309.jpg"
+        },
+        {
+          "image_id": 19000342,
+          "fp": 1,
+          "file_name": "000342.jpg"
+        }
+      ],
+      "top_fn_images": [
+        {
+          "image_id": 19000328,
+          "fn": 2,
+          "file_name": "000328.jpg"
+        },
+        {
+          "image_id": 19000330,
+          "fn": 2,
+          "file_name": "000330.jpg"
+        },
+        {
+          "image_id": 19000333,
+          "fn": 2,
+          "file_name": "000333.jpg"
+        },
+        {
+          "image_id": 19000346,
+          "fn": 2,
+          "file_name": "000346.jpg"
+        },
+        {
+          "image_id": 19000001,
+          "fn": 1,
+          "file_name": "000001.jpg"
+        },
+        {
+          "image_id": 19000016,
+          "fn": 1,
+          "file_name": "000016.jpg"
+        },
+        {
+          "image_id": 19000019,
+          "fn": 1,
+          "file_name": "000019.jpg"
+        },
+        {
+          "image_id": 19000025,
+          "fn": 1,
+          "file_name": "000025.jpg"
+        },
+        {
+          "image_id": 19000026,
+          "fn": 1,
+          "file_name": "000026.jpg"
+        },
+        {
+          "image_id": 19000040,
+          "fn": 1,
+          "file_name": "000040.jpg"
+        }
+      ]
+    },
+    {
+      "seed": 404,
+      "total_gt": 427,
+      "total_fp": 79,
+      "total_fn": 32,
+      "images_with_fp": 79,
+      "images_with_fn": 31,
+      "top_fp_images": [
+        {
+          "image_id": 19000260,
+          "fp": 1,
+          "file_name": "000260.jpg"
+        },
+        {
+          "image_id": 19000024,
+          "fp": 1,
+          "file_name": "000024.jpg"
+        },
+        {
+          "image_id": 19000204,
+          "fp": 1,
+          "file_name": "000204.jpg"
+        },
+        {
+          "image_id": 19000208,
+          "fp": 1,
+          "file_name": "000208.jpg"
+        },
+        {
+          "image_id": 19000156,
+          "fp": 1,
+          "file_name": "000156.jpg"
+        },
+        {
+          "image_id": 19000037,
+          "fp": 1,
+          "file_name": "000037.jpg"
+        },
+        {
+          "image_id": 19000228,
+          "fp": 1,
+          "file_name": "000228.jpg"
+        },
+        {
+          "image_id": 19000006,
+          "fp": 1,
+          "file_name": "000006.jpg"
+        },
+        {
+          "image_id": 19000001,
+          "fp": 1,
+          "file_name": "000001.jpg"
+        },
+        {
+          "image_id": 19000301,
+          "fp": 1,
+          "file_name": "000301.jpg"
+        }
+      ],
+      "top_fn_images": [
+        {
+          "image_id": 19000338,
+          "fn": 2,
+          "file_name": "000338.jpg"
+        },
+        {
+          "image_id": 19000001,
+          "fn": 1,
+          "file_name": "000001.jpg"
+        },
+        {
+          "image_id": 19000013,
+          "fn": 1,
+          "file_name": "000013.jpg"
+        },
+        {
+          "image_id": 19000034,
+          "fn": 1,
+          "file_name": "000034.jpg"
+        },
+        {
+          "image_id": 19000046,
+          "fn": 1,
+          "file_name": "000046.jpg"
+        },
+        {
+          "image_id": 19000086,
+          "fn": 1,
+          "file_name": "000086.jpg"
+        },
+        {
+          "image_id": 19000092,
+          "fn": 1,
+          "file_name": "000092.jpg"
+        },
+        {
+          "image_id": 19000103,
+          "fn": 1,
+          "file_name": "000103.jpg"
+        },
+        {
+          "image_id": 19000138,
+          "fn": 1,
+          "file_name": "000138.jpg"
+        },
+        {
+          "image_id": 19000145,
+          "fn": 1,
+          "file_name": "000145.jpg"
+        }
+      ]
+    },
+    {
+      "seed": 505,
+      "total_gt": 427,
+      "total_fp": 70,
+      "total_fn": 43,
+      "images_with_fp": 70,
+      "images_with_fn": 42,
+      "top_fp_images": [
+        {
+          "image_id": 19000300,
+          "fp": 1,
+          "file_name": "000300.jpg"
+        },
+        {
+          "image_id": 19000302,
+          "fp": 1,
+          "file_name": "000302.jpg"
+        },
+        {
+          "image_id": 19000118,
+          "fp": 1,
+          "file_name": "000118.jpg"
+        },
+        {
+          "image_id": 19000250,
+          "fp": 1,
+          "file_name": "000250.jpg"
+        },
+        {
+          "image_id": 19000168,
+          "fp": 1,
+          "file_name": "000168.jpg"
+        },
+        {
+          "image_id": 19000141,
+          "fp": 1,
+          "file_name": "000141.jpg"
+        },
+        {
+          "image_id": 19000065,
+          "fp": 1,
+          "file_name": "000065.jpg"
+        },
+        {
+          "image_id": 19000215,
+          "fp": 1,
+          "file_name": "000215.jpg"
+        },
+        {
+          "image_id": 19000060,
+          "fp": 1,
+          "file_name": "000060.jpg"
+        },
+        {
+          "image_id": 19000018,
+          "fp": 1,
+          "file_name": "000018.jpg"
+        }
+      ],
+      "top_fn_images": [
+        {
+          "image_id": 19000342,
+          "fn": 2,
+          "file_name": "000342.jpg"
+        },
+        {
+          "image_id": 19000004,
+          "fn": 1,
+          "file_name": "000004.jpg"
+        },
+        {
+          "image_id": 19000036,
+          "fn": 1,
+          "file_name": "000036.jpg"
+        },
+        {
+          "image_id": 19000046,
+          "fn": 1,
+          "file_name": "000046.jpg"
+        },
+        {
+          "image_id": 19000049,
+          "fn": 1,
+          "file_name": "000049.jpg"
+        },
+        {
+          "image_id": 19000077,
+          "fn": 1,
+          "file_name": "000077.jpg"
+        },
+        {
+          "image_id": 19000081,
+          "fn": 1,
+          "file_name": "000081.jpg"
+        },
+        {
+          "image_id": 19000096,
+          "fn": 1,
+          "file_name": "000096.jpg"
+        },
+        {
+          "image_id": 19000105,
+          "fn": 1,
+          "file_name": "000105.jpg"
+        },
+        {
+          "image_id": 19000110,
+          "fn": 1,
+          "file_name": "000110.jpg"
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "images_with_any_fp": 250,
+    "images_with_any_fn": 154,
+    "top_fp_images": [
+      {
+        "image_id": 19000168,
+        "fp_total": 4,
+        "file_name": "000168.jpg"
+      },
+      {
+        "image_id": 19000085,
+        "fp_total": 4,
+        "file_name": "000085.jpg"
+      },
+      {
+        "image_id": 19000118,
+        "fp_total": 4,
+        "file_name": "000118.jpg"
+      },
+      {
+        "image_id": 19000300,
+        "fp_total": 4,
+        "file_name": "000300.jpg"
+      },
+      {
+        "image_id": 19000018,
+        "fp_total": 4,
+        "file_name": "000018.jpg"
+      },
+      {
+        "image_id": 19000275,
+        "fp_total": 3,
+        "file_name": "000275.jpg"
+      },
+      {
+        "image_id": 19000231,
+        "fp_total": 3,
+        "file_name": "000231.jpg"
+      },
+      {
+        "image_id": 19000250,
+        "fp_total": 3,
+        "file_name": "000250.jpg"
+      },
+      {
+        "image_id": 19000132,
+        "fp_total": 3,
+        "file_name": "000132.jpg"
+      },
+      {
+        "image_id": 19000062,
+        "fp_total": 3,
+        "file_name": "000062.jpg"
+      },
+      {
+        "image_id": 19000045,
+        "fp_total": 3,
+        "file_name": "000045.jpg"
+      },
+      {
+        "image_id": 19000009,
+        "fp_total": 3,
+        "file_name": "000009.jpg"
+      },
+      {
+        "image_id": 19000325,
+        "fp_total": 3,
+        "file_name": "000325.jpg"
+      },
+      {
+        "image_id": 19000107,
+        "fp_total": 3,
+        "file_name": "000107.jpg"
+      },
+      {
+        "image_id": 19000269,
+        "fp_total": 3,
+        "file_name": "000269.jpg"
+      },
+      {
+        "image_id": 19000011,
+        "fp_total": 3,
+        "file_name": "000011.jpg"
+      },
+      {
+        "image_id": 19000153,
+        "fp_total": 3,
+        "file_name": "000153.jpg"
+      },
+      {
+        "image_id": 19000218,
+        "fp_total": 3,
+        "file_name": "000218.jpg"
+      },
+      {
+        "image_id": 19000006,
+        "fp_total": 3,
+        "file_name": "000006.jpg"
+      },
+      {
+        "image_id": 19000061,
+        "fp_total": 3,
+        "file_name": "000061.jpg"
+      }
+    ],
+    "top_fn_images": [
+      {
+        "image_id": 19000342,
+        "fn_total": 4,
+        "file_name": "000342.jpg"
+      },
+      {
+        "image_id": 19000049,
+        "fn_total": 3,
+        "file_name": "000049.jpg"
+      },
+      {
+        "image_id": 19000145,
+        "fn_total": 3,
+        "file_name": "000145.jpg"
+      },
+      {
+        "image_id": 19000284,
+        "fn_total": 3,
+        "file_name": "000284.jpg"
+      },
+      {
+        "image_id": 19000325,
+        "fn_total": 3,
+        "file_name": "000325.jpg"
+      },
+      {
+        "image_id": 19000046,
+        "fn_total": 3,
+        "file_name": "000046.jpg"
+      },
+      {
+        "image_id": 19000328,
+        "fn_total": 3,
+        "file_name": "000328.jpg"
+      },
+      {
+        "image_id": 19000333,
+        "fn_total": 3,
+        "file_name": "000333.jpg"
+      },
+      {
+        "image_id": 19000340,
+        "fn_total": 3,
+        "file_name": "000340.jpg"
+      },
+      {
+        "image_id": 19000338,
+        "fn_total": 3,
+        "file_name": "000338.jpg"
+      },
+      {
+        "image_id": 19000056,
+        "fn_total": 2,
+        "file_name": "000056.jpg"
+      },
+      {
+        "image_id": 19000058,
+        "fn_total": 2,
+        "file_name": "000058.jpg"
+      },
+      {
+        "image_id": 19000117,
+        "fn_total": 2,
+        "file_name": "000117.jpg"
+      },
+      {
+        "image_id": 19000183,
+        "fn_total": 2,
+        "file_name": "000183.jpg"
+      },
+      {
+        "image_id": 19000187,
+        "fn_total": 2,
+        "file_name": "000187.jpg"
+      },
+      {
+        "image_id": 19000286,
+        "fn_total": 2,
+        "file_name": "000286.jpg"
+      },
+      {
+        "image_id": 19000301,
+        "fn_total": 2,
+        "file_name": "000301.jpg"
+      },
+      {
+        "image_id": 19000350,
+        "fn_total": 2,
+        "file_name": "000350.jpg"
+      },
+      {
+        "image_id": 19000016,
+        "fn_total": 2,
+        "file_name": "000016.jpg"
+      },
+      {
+        "image_id": 19000050,
+        "fn_total": 2,
+        "file_name": "000050.jpg"
+      }
+    ],
+    "top_error_images": [
+      {
+        "image_id": 19000325,
+        "file_name": "000325.jpg",
+        "fp_total": 3,
+        "fn_total": 3,
+        "error_total": 6
+      },
+      {
+        "image_id": 19000342,
+        "file_name": "000342.jpg",
+        "fp_total": 1,
+        "fn_total": 4,
+        "error_total": 5
+      },
+      {
+        "image_id": 19000046,
+        "file_name": "000046.jpg",
+        "fp_total": 2,
+        "fn_total": 3,
+        "error_total": 5
+      },
+      {
+        "image_id": 19000338,
+        "file_name": "000338.jpg",
+        "fp_total": 2,
+        "fn_total": 3,
+        "error_total": 5
+      },
+      {
+        "image_id": 19000118,
+        "file_name": "000118.jpg",
+        "fp_total": 4,
+        "fn_total": 1,
+        "error_total": 5
+      },
+      {
+        "image_id": 19000168,
+        "file_name": "000168.jpg",
+        "fp_total": 4,
+        "fn_total": 1,
+        "error_total": 5
+      },
+      {
+        "image_id": 19000333,
+        "file_name": "000333.jpg",
+        "fp_total": 1,
+        "fn_total": 3,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000286,
+        "file_name": "000286.jpg",
+        "fp_total": 2,
+        "fn_total": 2,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000335,
+        "file_name": "000335.jpg",
+        "fp_total": 2,
+        "fn_total": 2,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000336,
+        "file_name": "000336.jpg",
+        "fp_total": 2,
+        "fn_total": 2,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000349,
+        "file_name": "000349.jpg",
+        "fp_total": 2,
+        "fn_total": 2,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000009,
+        "file_name": "000009.jpg",
+        "fp_total": 3,
+        "fn_total": 1,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000061,
+        "file_name": "000061.jpg",
+        "fp_total": 3,
+        "fn_total": 1,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000081,
+        "file_name": "000081.jpg",
+        "fp_total": 3,
+        "fn_total": 1,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000107,
+        "file_name": "000107.jpg",
+        "fp_total": 3,
+        "fn_total": 1,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000153,
+        "file_name": "000153.jpg",
+        "fp_total": 3,
+        "fn_total": 1,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000198,
+        "file_name": "000198.jpg",
+        "fp_total": 3,
+        "fn_total": 1,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000231,
+        "file_name": "000231.jpg",
+        "fp_total": 3,
+        "fn_total": 1,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000347,
+        "file_name": "000347.jpg",
+        "fp_total": 3,
+        "fn_total": 1,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000018,
+        "file_name": "000018.jpg",
+        "fp_total": 4,
+        "fn_total": 0,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000085,
+        "file_name": "000085.jpg",
+        "fp_total": 4,
+        "fn_total": 0,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000300,
+        "file_name": "000300.jpg",
+        "fp_total": 4,
+        "fn_total": 0,
+        "error_total": 4
+      },
+      {
+        "image_id": 19000049,
+        "file_name": "000049.jpg",
+        "fp_total": 0,
+        "fn_total": 3,
+        "error_total": 3
+      },
+      {
+        "image_id": 19000145,
+        "file_name": "000145.jpg",
+        "fp_total": 0,
+        "fn_total": 3,
+        "error_total": 3
+      },
+      {
+        "image_id": 19000284,
+        "file_name": "000284.jpg",
+        "fp_total": 0,
+        "fn_total": 3,
+        "error_total": 3
+      },
+      {
+        "image_id": 19000328,
+        "file_name": "000328.jpg",
+        "fp_total": 0,
+        "fn_total": 3,
+        "error_total": 3
+      },
+      {
+        "image_id": 19000340,
+        "file_name": "000340.jpg",
+        "fp_total": 0,
+        "fn_total": 3,
+        "error_total": 3
+      },
+      {
+        "image_id": 19000001,
+        "file_name": "000001.jpg",
+        "fp_total": 1,
+        "fn_total": 2,
+        "error_total": 3
+      },
+      {
+        "image_id": 19000050,
+        "file_name": "000050.jpg",
+        "fp_total": 1,
+        "fn_total": 2,
+        "error_total": 3
+      },
+      {
+        "image_id": 19000056,
+        "file_name": "000056.jpg",
+        "fp_total": 1,
+        "fn_total": 2,
+        "error_total": 3
+      }
+    ]
+  },
+  "notes": [
+    "This error analysis is based on the current mmb_proxy evaluation path.",
+    "Counts aggregate FP/FN over five deterministic seeds using VISO overlap protocol."
+  ]
+}

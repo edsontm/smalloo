@@ -6,6 +6,31 @@
   "seed": 505,
   "baseline": "MMB",
   "objective": "Reproduce the current MMB baseline on VISO ship with fixed seeds, locked preprocessing, and a single benchmark protocol before testing any new hypothesis.",
+  "intervention": {
+    "inference_mode": "complete",
+    "strategy": "paper_aligned_complete",
+    "amfd_k": 4.0,
+    "lrmc_l": 4,
+    "lrmc_k": 2.5,
+    "lrmc_frame_frequency": 10.0,
+    "pf_length": 5,
+    "pf_radius": 7.0,
+    "pf_min_occurrences": 3,
+    "pf_recover_partial_tracks": true,
+    "component_min_area": 5,
+    "component_max_area": 80,
+    "component_min_aspect_ratio": 1.0,
+    "component_max_aspect_ratio": 6.0,
+    "stabilize_motion": false,
+    "stabilize_affine": false,
+    "radiometric_normalize": false,
+    "score": 0.95,
+    "notes": [
+      "Run the full classical MMB stack (AMFD + LRMC + PF) instead of proxy mode.",
+      "Keep AMFD/PF defaults aligned to paper guidance (k=4, trajectory window=5, 7x7 association gate).",
+      "Use paper component filtering bounds for AMFD/LRMC proposals."
+    ]
+  },
   "phases": [
     {
       "name": "smoke_validation",
@@ -30,17 +55,17 @@
   ],
   "runtime": {
     "platform_system": "Darwin",
-    "accelerator": "cpu",
-    "device": "cpu",
+    "accelerator": "mps",
+    "device": "mps",
     "distributed_backend": null,
-    "num_workers": 8,
+    "num_workers": 4,
     "pin_memory": false,
-    "amp_enabled": false,
-    "amp_dtype": null,
+    "amp_enabled": true,
+    "amp_dtype": "float16",
     "torch_compile_enabled": false,
     "notes": [
-      "Mac detected but MPS is unavailable; using CPU fallback.",
-      "MPS diagnostic: RuntimeError: The MPS backend is supported on macOS 14.0+. Current OS version can be queried using `sw_vers`"
+      "Mac detected with Apple MPS available.",
+      "Disable pin_memory on MPS and keep worker count conservative."
     ]
   }
 }

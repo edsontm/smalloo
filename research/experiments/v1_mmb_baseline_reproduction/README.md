@@ -30,4 +30,5 @@ The main outcome is not an accuracy gain. The outcome is a stable benchmark refe
 1. Validate the devsample layout with `python3 scripts/validate_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample`.
 2. Generate deterministic per-seed manifests with `python3 scripts/materialize_runs.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample`.
 3. Repeat validation and manifest generation on `VISO` before reported runs.
-4. Attach the future MMB training and evaluation entrypoints to the frozen manifests rather than changing the protocol.
+4. Execute complete MMB from frozen manifests on devsample with `python3 scripts/train_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample --trainer mmb --smoke-steps 1`.
+5. Execute the same complete MMB path on VISO with `python3 scripts/train_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile viso --trainer mmb --smoke-steps 1`.

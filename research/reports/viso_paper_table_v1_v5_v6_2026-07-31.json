@@ -1,0 +1,57 @@
+{
+  "profile": "viso",
+  "steps": 8,
+  "rows": [
+    {
+      "slug": "v1_mmb_baseline_reproduction",
+      "strategy": "baseline_proxy",
+      "precision": 0.0031424171625856136,
+      "recall": 0.005152224824355972,
+      "f1": 0.0039036012650866926,
+      "ap": 4.301336533167531e-05,
+      "mAP": 4.439200790062619e-05,
+      "tp": 2.2,
+      "fp": 700.8,
+      "fn": 424.8,
+      "selected_threshold_mean": null,
+      "leakage_controls": {
+        "label_conditioning_on_test": false,
+        "threshold_selection_split": null
+      }
+    },
+    {
+      "slug": "v5_mmb_v4_plus_v2",
+      "strategy": "v5_v4_plus_v2",
+      "precision": 0.004209219479272618,
+      "recall": 0.00702576112412178,
+      "f1": 0.005264078136666887,
+      "ap": 5.796174704473772e-05,
+      "mAP": 5.824669198087063e-05,
+      "tp": 3,
+      "fp": 710,
+      "fn": 424,
+      "selected_threshold_mean": null,
+      "leakage_controls": {
+        "label_conditioning_on_test": false,
+        "threshold_selection_split": null
+      }
+    },
+    {
+      "slug": "v6_mmb_v5_plus_light_v3_calibration",
+      "strategy": "v6_v5_plus_light_v3",
+      "precision": 0.004244421137579292,
+      "recall": 0.005152224824355972,
+      "f1": 0.004628749724496171,
+      "ap": 4.7427489216162106e-05,
+      "mAP": 4.765444033187282e-05,
+      "tp": 2.2,
+      "fp": 534.4,
+      "fn": 424.8,
+      "selected_threshold_mean": 0.47000000000000003,
+      "leakage_controls": {
+        "label_conditioning_on_test": false,
+        "threshold_selection_split": "train"
+      }
+    }
+  ]
+}

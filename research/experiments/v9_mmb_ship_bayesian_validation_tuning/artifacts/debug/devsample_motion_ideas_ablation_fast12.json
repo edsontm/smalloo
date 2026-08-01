@@ -1,0 +1,178 @@
+{
+  "baseline_no_stabilization": {
+    "metrics": {
+      "precision": 0.03571428571428571,
+      "recall": 0.9166666666666666,
+      "f1": 0.06874999999999999,
+      "tp": 11,
+      "fp": 297,
+      "fn": 1
+    },
+    "predictions": 308,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "subpixel_translation_only": {
+    "metrics": {
+      "precision": 0.03832752613240418,
+      "recall": 0.9166666666666666,
+      "f1": 0.07357859531772575,
+      "tp": 11,
+      "fp": 276,
+      "fn": 1
+    },
+    "predictions": 287,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": true,
+      "stabilize_max_step_shift": 20.0,
+      "stabilize_affine": false,
+      "radiometric_normalize": false
+    },
+    "delta_vs_baseline": {
+      "precision": 0.0026132404181184662,
+      "recall": 0.0,
+      "f1": 0.0048285953177257535,
+      "fp": -21,
+      "fn": 0
+    }
+  },
+  "subpixel_plus_affine": {
+    "metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 96,
+      "fn": 12
+    },
+    "predictions": 96,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": true,
+      "stabilize_max_step_shift": 20.0,
+      "stabilize_affine": true,
+      "stabilize_affine_max_angle_deg": 1.0,
+      "stabilize_affine_max_scale_delta": 0.01,
+      "radiometric_normalize": false
+    },
+    "delta_vs_baseline": {
+      "precision": -0.03571428571428571,
+      "recall": -0.9166666666666666,
+      "f1": -0.06874999999999999,
+      "fp": -201,
+      "fn": 11
+    }
+  },
+  "subpixel_plus_radiometric": {
+    "metrics": {
+      "precision": 0.03571428571428571,
+      "recall": 0.9166666666666666,
+      "f1": 0.06874999999999999,
+      "tp": 11,
+      "fp": 297,
+      "fn": 1
+    },
+    "predictions": 308,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": true,
+      "stabilize_max_step_shift": 20.0,
+      "stabilize_affine": false,
+      "radiometric_normalize": true
+    },
+    "delta_vs_baseline": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "subpixel_affine_radiometric": {
+    "metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 89,
+      "fn": 12
+    },
+    "predictions": 89,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": true,
+      "stabilize_max_step_shift": 20.0,
+      "stabilize_affine": true,
+      "stabilize_affine_max_angle_deg": 1.0,
+      "stabilize_affine_max_scale_delta": 0.01,
+      "radiometric_normalize": true
+    },
+    "delta_vs_baseline": {
+      "precision": -0.03571428571428571,
+      "recall": -0.9166666666666666,
+      "f1": -0.06874999999999999,
+      "fp": -208,
+      "fn": 11
+    }
+  }
+}

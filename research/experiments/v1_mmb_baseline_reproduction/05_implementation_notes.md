@@ -12,9 +12,15 @@
 
 ## Risks
 
-- The repository still lacks the actual MMB training and evaluation implementation.
-- The original MMB preprocessing contract may contain hidden defaults not yet captured here.
-- Reported metrics cannot be claimed until the runtime implementation is added and executed on the full dataset.
+- The complete MMB runtime is now active for v1, but metric sensitivity to temporal continuity remains high.
+- The original MMB preprocessing contract may still contain hidden defaults not fully captured in public text.
+- Reported metrics still require reproducible full-dataset execution evidence per seed.
+
+## Runtime contract for v1
+
+- `configs/experiments/v1_mmb_baseline_reproduction.json` now fixes `intervention.inference_mode` to `complete`.
+- The intervention is pinned to AMFD + LRMC + PF defaults aligned with the paper behavior.
+- Non-paper stabilization knobs are disabled for v1 (`stabilize_motion=false`, `stabilize_affine=false`, `radiometric_normalize=false`).
 
 ## Validation plan
 

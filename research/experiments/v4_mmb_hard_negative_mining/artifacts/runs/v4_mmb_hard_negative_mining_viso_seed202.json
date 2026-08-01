@@ -1,0 +1,51 @@
+{
+  "slug": "v4_mmb_hard_negative_mining",
+  "title": "MMB Hard Negative Mining",
+  "dataset_profile": "viso",
+  "dataset_root": "VISO",
+  "seed": 202,
+  "baseline": "MMB proxy",
+  "objective": "Test whether hard-negative mining focused behavior reduces repeated false-positive patterns while preserving recall under the VISO protocol.",
+  "intervention": {
+    "strategy": "hard_negative_mining",
+    "hard_negative_focus": "dense_and_border_failure_modes",
+    "changed_variable": "negative_sampling_policy"
+  },
+  "phases": [
+    {
+      "name": "smoke_validation",
+      "entrypoint": "python3 scripts/validate_experiment.py --slug v4_mmb_hard_negative_mining --dataset-profile devsample",
+      "purpose": "Validate scaffold and dataset contract on devsample."
+    },
+    {
+      "name": "smoke_manifest_generation",
+      "entrypoint": "python3 scripts/materialize_runs.py --slug v4_mmb_hard_negative_mining --dataset-profile devsample",
+      "purpose": "Freeze deterministic devsample run manifests."
+    },
+    {
+      "name": "full_validation",
+      "entrypoint": "python3 scripts/validate_experiment.py --slug v4_mmb_hard_negative_mining --dataset-profile viso",
+      "purpose": "Validate full dataset availability before benchmark runs."
+    },
+    {
+      "name": "full_manifest_generation",
+      "entrypoint": "python3 scripts/materialize_runs.py --slug v4_mmb_hard_negative_mining --dataset-profile viso",
+      "purpose": "Freeze full VISO run manifests for reporting."
+    }
+  ],
+  "runtime": {
+    "platform_system": "Darwin",
+    "accelerator": "mps",
+    "device": "mps",
+    "distributed_backend": null,
+    "num_workers": 4,
+    "pin_memory": false,
+    "amp_enabled": true,
+    "amp_dtype": "float16",
+    "torch_compile_enabled": false,
+    "notes": [
+      "Mac detected with Apple MPS available.",
+      "Disable pin_memory on MPS and keep worker count conservative."
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "experiment": "v1_mmb_baseline_reproduction",
+  "dataset_profile": "devsample",
+  "execution": {
+    "steps": [
+      {
+        "name": "validate",
+        "returncode": 0,
+        "elapsed_seconds": 0.4583949579973705,
+        "output_path": "research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_validate_devsample.json"
+      },
+      {
+        "name": "materialize",
+        "returncode": 0,
+        "elapsed_seconds": 0.45114462496712804,
+        "output_path": "research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_materialize_devsample.json"
+      },
+      {
+        "name": "smoke_train",
+        "returncode": 0,
+        "elapsed_seconds": 0.8984657499822788,
+        "output_path": "research/experiments/v1_mmb_baseline_reproduction/artifacts/results/v1_mmb_baseline_reproduction_smoke_train_devsample.json"
+      }
+    ],
+    "total_elapsed_seconds": 1.8080053329467773
+  },
+  "metrics": {
+    "precision": null,
+    "recall": null,
+    "f1": null,
+    "average_precision": null,
+    "fps": null,
+    "gpu_memory": null,
+    "parameters": null,
+    "training_time_seconds": 0.8984657499822788,
+    "inference_time_seconds": null,
+    "registration_error": null,
+    "temporal_consistency": null,
+    "false_positives": null,
+    "false_negatives": null,
+    "confidence_interval": null,
+    "paired_statistical_test": null
+  },
+  "available_runtime_signals": {
+    "accelerator": "mps",
+    "device": "mps",
+    "num_workers": 4,
+    "amp_enabled": true,
+    "smoke_runs_completed": 5,
+    "smoke_runs_total": 5,
+    "smoke_final_losses": [
+      1.6482250690460205,
+      2.28359055519104,
+      1.6103122234344482,
+      0.9496258497238159,
+      1.1002204418182373
+    ]
+  },
+  "notes": [
+    "Current pipeline does not implement detection evaluation outputs (TP/FP/FN, AP, precision/recall/F1).",
+    "Metrics set to null are defined in benchmark docs but not produced by scripts/train_experiment.py smoke path."
+  ]
+}

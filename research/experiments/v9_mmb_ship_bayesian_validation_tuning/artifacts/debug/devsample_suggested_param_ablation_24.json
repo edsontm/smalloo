@@ -1,0 +1,342 @@
+{
+  "baseline_current": {
+    "metrics": {
+      "precision": 0.0231990231990232,
+      "recall": 0.7916666666666666,
+      "f1": 0.045077105575326216,
+      "tp": 19,
+      "fp": 800,
+      "fn": 5
+    },
+    "predictions": 819,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "pf_recover_partial_tracks": true,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "no_pf_recovery": {
+    "metrics": {
+      "precision": 0.021621621621621623,
+      "recall": 0.5,
+      "f1": 0.04145077720207254,
+      "tp": 12,
+      "fp": 543,
+      "fn": 12
+    },
+    "predictions": 555,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "pf_recover_partial_tracks": false,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": -0.001577401577401577,
+      "recall": -0.29166666666666663,
+      "f1": -0.003626328373253676,
+      "fp": -257,
+      "fn": 7
+    }
+  },
+  "pf_min_occ_4": {
+    "metrics": {
+      "precision": 0.0260707635009311,
+      "recall": 0.5833333333333334,
+      "f1": 0.049910873440285206,
+      "tp": 14,
+      "fp": 523,
+      "fn": 10
+    },
+    "predictions": 537,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 4,
+      "pf_recover_partial_tracks": true,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": 0.002871740301907899,
+      "recall": -0.20833333333333326,
+      "f1": 0.004833767864958989,
+      "fp": -277,
+      "fn": 5
+    }
+  },
+  "pf_min_occ_5": {
+    "metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 289,
+      "fn": 24
+    },
+    "predictions": 289,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 5,
+      "pf_recover_partial_tracks": true,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": -0.0231990231990232,
+      "recall": -0.7916666666666666,
+      "f1": -0.045077105575326216,
+      "fp": -511,
+      "fn": 19
+    }
+  },
+  "pf_radius_5": {
+    "metrics": {
+      "precision": 0.021822849807445442,
+      "recall": 0.7083333333333334,
+      "f1": 0.04234122042341221,
+      "tp": 17,
+      "fp": 762,
+      "fn": 7
+    },
+    "predictions": 779,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 5.0,
+      "pf_min_occurrences": 3,
+      "pf_recover_partial_tracks": true,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": -0.0013761733915777577,
+      "recall": -0.08333333333333326,
+      "f1": -0.0027358851519140095,
+      "fp": -38,
+      "fn": 2
+    }
+  },
+  "pf_radius_4": {
+    "metrics": {
+      "precision": 0.02077562326869806,
+      "recall": 0.625,
+      "f1": 0.040214477211796246,
+      "tp": 15,
+      "fp": 707,
+      "fn": 9
+    },
+    "predictions": 722,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 4.0,
+      "pf_min_occurrences": 3,
+      "pf_recover_partial_tracks": true,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": -0.0024233999303251395,
+      "recall": -0.16666666666666663,
+      "f1": -0.004862628363529971,
+      "fp": -93,
+      "fn": 4
+    }
+  },
+  "amfd_k_45": {
+    "metrics": {
+      "precision": 0.020155038759689922,
+      "recall": 0.5416666666666666,
+      "f1": 0.03886397608370702,
+      "tp": 13,
+      "fp": 632,
+      "fn": 11
+    },
+    "predictions": 645,
+    "intervention": {
+      "amfd_k": 4.5,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "pf_recover_partial_tracks": true,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": -0.0030439844393332777,
+      "recall": -0.25,
+      "f1": -0.0062131294916191945,
+      "fp": -168,
+      "fn": 6
+    }
+  },
+  "amfd_k_50": {
+    "metrics": {
+      "precision": 0.008915304606240713,
+      "recall": 0.25,
+      "f1": 0.01721664275466284,
+      "tp": 6,
+      "fp": 667,
+      "fn": 18
+    },
+    "predictions": 673,
+    "intervention": {
+      "amfd_k": 5.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "pf_recover_partial_tracks": true,
+      "component_min_area": 5,
+      "component_max_area": 280,
+      "component_min_aspect_ratio": 0.4,
+      "component_max_aspect_ratio": 10.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": -0.014283718592782487,
+      "recall": -0.5416666666666666,
+      "f1": -0.027860462820663377,
+      "fp": -133,
+      "fn": 13
+    }
+  },
+  "tight_components": {
+    "metrics": {
+      "precision": 0.02664796633941094,
+      "recall": 0.7916666666666666,
+      "f1": 0.05156037991858887,
+      "tp": 19,
+      "fp": 694,
+      "fn": 5
+    },
+    "predictions": 713,
+    "intervention": {
+      "amfd_k": 4.0,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 7.0,
+      "pf_min_occurrences": 3,
+      "pf_recover_partial_tracks": true,
+      "component_min_area": 5,
+      "component_max_area": 160,
+      "component_min_aspect_ratio": 0.5,
+      "component_max_aspect_ratio": 8.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": 0.003448943140387739,
+      "recall": 0.0,
+      "f1": 0.006483274343262652,
+      "fp": -106,
+      "fn": 0
+    }
+  },
+  "combined_precision_focus": {
+    "metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 135,
+      "fn": 24
+    },
+    "predictions": 135,
+    "intervention": {
+      "amfd_k": 4.5,
+      "lrmc_l": 4,
+      "lrmc_k": 2.5,
+      "lrmc_frame_frequency": 10.0,
+      "pf_length": 5,
+      "pf_radius": 5.0,
+      "pf_min_occurrences": 5,
+      "pf_recover_partial_tracks": false,
+      "component_min_area": 5,
+      "component_max_area": 160,
+      "component_min_aspect_ratio": 0.5,
+      "component_max_aspect_ratio": 8.0,
+      "score": 0.95,
+      "stabilize_motion": false
+    },
+    "delta_vs_baseline": {
+      "precision": -0.0231990231990232,
+      "recall": -0.7916666666666666,
+      "f1": -0.045077105575326216,
+      "fp": -665,
+      "fn": 19
+    }
+  }
+}

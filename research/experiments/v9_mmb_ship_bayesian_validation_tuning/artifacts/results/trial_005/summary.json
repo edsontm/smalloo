@@ -1,0 +1,38 @@
+{
+  "trial": 5,
+  "params": {
+    "amfd_k": 4.46745229985069,
+    "lrmc_l": 4,
+    "lrmc_k": 2.0607347623819,
+    "pf_length": 5,
+    "pf_radius": 5.863110887890921,
+    "pf_min_occurrences": 5,
+    "score": 0.95
+  },
+  "objective": 0.18439716312056736,
+  "metrics": {
+    "precision": 0.1111111111111111,
+    "recall": 0.5416666666666666,
+    "f1": 0.18439716312056736,
+    "ap": 0.062315634218289076,
+    "mAP": 0.062315634218289076,
+    "tp": 13,
+    "fp": 104,
+    "fn": 11
+  },
+  "algorithm": {
+    "name": "mmb_complete",
+    "frames_loaded": 24,
+    "segments": 1,
+    "amfd_k": 4.46745229985069,
+    "lrmc_l": 4,
+    "lrmc_k": 2.0607347623819,
+    "pf_length": 5,
+    "pf_radius": 5.863110887890921,
+    "pf_min_occurrences": 5
+  },
+  "evaluated_images": 24,
+  "predictions": 117,
+  "ground_truth": 24,
+  "output_dir": "/Users/edsontm/dev/smalloo/research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/results/trial_005"
+}

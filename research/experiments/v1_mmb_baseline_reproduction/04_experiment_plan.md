@@ -31,4 +31,13 @@ The only allowed changes are infrastructure changes required to freeze the bench
 	`python3 scripts/validate_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile viso`
 4. Full run-manifest generation:
 	`python3 scripts/materialize_runs.py --slug v1_mmb_baseline_reproduction --dataset-profile viso`
-5. When MMB code is added under `src/`, bind training and evaluation entrypoints to the frozen manifests instead of changing dataset or seed definitions.
+5. Run baseline evaluation from frozen manifests using complete MMB mode:
+	`python3 scripts/train_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile devsample --trainer mmb --smoke-steps 1`
+6. Run reported evaluation on VISO using the same frozen manifests and intervention:
+	`python3 scripts/train_experiment.py --slug v1_mmb_baseline_reproduction --dataset-profile viso --trainer mmb --smoke-steps 1`
+
+## Paper-fidelity runtime contract
+
+- Inference mode is fixed to `complete` in the experiment config.
+- The intervention uses AMFD + LRMC + PF with paper-aligned defaults.
+- Component filtering is fixed to paper bounds (`5..80` area and `1.0..6.0` aspect ratio).

@@ -1,0 +1,32 @@
+{
+  "class": "car",
+  "source_annotations": "/Users/edsontm/dev/smalloo/VISO/coco/car/Annotations/instances_train2017.json",
+  "source_images_dir": "/Users/edsontm/dev/smalloo/VISO/coco/car/train2017",
+  "num_images": 10,
+  "pairs_dir": "/Users/edsontm/dev/smalloo/research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/debug/car_gt_pred_pairs_10_original_mmb",
+  "pipeline_output_dir": "/Users/edsontm/dev/smalloo/research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/debug/car_gt_pred_pairs_10_original_mmb/pipeline_output",
+  "run_config": {
+    "multi_frame_difference": {
+      "temporal_windows": [
+        1,
+        2,
+        3
+      ],
+      "normalize_frames": true
+    },
+    "robust_matrix_completion": {
+      "lambda_value": 0.25,
+      "max_iter": 60,
+      "tol": 1e-05
+    },
+    "foreground": {
+      "threshold": 0.3,
+      "min_component_size": 1,
+      "morphology_kernel": 3
+    },
+    "detection": {
+      "min_area": 5,
+      "max_area": 1200
+    }
+  }
+}

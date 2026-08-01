@@ -1,0 +1,174 @@
+{
+  "experiment": "v9_mmb_ship_bayesian_validation_tuning",
+  "optimizer": "bayesian-optimization/BayesianOptimization",
+  "seed": 42,
+  "dataset": "../../devsample/coco/ship",
+  "requested_split": "val",
+  "resolved_split": "train",
+  "annotations_path": "VISO/coco/../../devsample/coco/ship/Annotations/instances_train2017.json",
+  "image_dir": "VISO/coco/../../devsample/coco/ship/train2017",
+  "max_images": 12,
+  "init_points": 1,
+  "iterations": 1,
+  "objective": "maximize_f1",
+  "space": {
+    "amfd_k": [
+      3.0,
+      5.5
+    ],
+    "lrmc_l": [
+      2,
+      8
+    ],
+    "lrmc_k": [
+      2.0,
+      4.5
+    ],
+    "pf_length": [
+      4,
+      7
+    ],
+    "pf_radius": [
+      5.0,
+      9.0
+    ],
+    "pf_min_occurrences": [
+      2,
+      5
+    ]
+  },
+  "paper_reference": {
+    "amfd_k": 4.0,
+    "lrmc_l": 4,
+    "pf_length": 5,
+    "pf_radius": 7.0,
+    "notes": "Ranges were centered near the paper values and expanded conservatively."
+  },
+  "best": {
+    "trial": 0,
+    "params": {
+      "amfd_k": 3.9363502971184063,
+      "lrmc_l": 8,
+      "lrmc_k": 3.829984854528513,
+      "pf_length": 6,
+      "pf_radius": 5.624074561769746,
+      "pf_min_occurrences": 2,
+      "score": 0.95
+    },
+    "objective": 0.0,
+    "metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "ap": 0.0,
+      "mAP": 0.0,
+      "tp": 0,
+      "fp": 202,
+      "fn": 12
+    },
+    "algorithm": {
+      "name": "mmb_complete",
+      "frames_loaded": 12,
+      "segments": 1,
+      "amfd_k": 3.9363502971184063,
+      "lrmc_l": 8,
+      "lrmc_k": 3.829984854528513,
+      "pf_length": 6,
+      "pf_radius": 5.624074561769746,
+      "pf_min_occurrences": 2
+    },
+    "evaluated_images": 12,
+    "predictions": 202,
+    "ground_truth": 12,
+    "output_dir": "/Users/edsontm/dev/smalloo/research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/results/trial_000"
+  },
+  "optimizer_best": {
+    "target": 0.0,
+    "params": {
+      "amfd_k": 3.9363502971184063,
+      "lrmc_l": 7.704285838459497,
+      "lrmc_k": 3.829984854528513,
+      "pf_length": 5.79597545259111,
+      "pf_radius": 5.624074561769746,
+      "pf_min_occurrences": 2.467983561008608
+    }
+  },
+  "trials": [
+    {
+      "trial": 0,
+      "params": {
+        "amfd_k": 3.9363502971184063,
+        "lrmc_l": 8,
+        "lrmc_k": 3.829984854528513,
+        "pf_length": 6,
+        "pf_radius": 5.624074561769746,
+        "pf_min_occurrences": 2,
+        "score": 0.95
+      },
+      "objective": 0.0,
+      "metrics": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "ap": 0.0,
+        "mAP": 0.0,
+        "tp": 0,
+        "fp": 202,
+        "fn": 12
+      },
+      "algorithm": {
+        "name": "mmb_complete",
+        "frames_loaded": 12,
+        "segments": 1,
+        "amfd_k": 3.9363502971184063,
+        "lrmc_l": 8,
+        "lrmc_k": 3.829984854528513,
+        "pf_length": 6,
+        "pf_radius": 5.624074561769746,
+        "pf_min_occurrences": 2
+      },
+      "evaluated_images": 12,
+      "predictions": 202,
+      "ground_truth": 12,
+      "output_dir": "/Users/edsontm/dev/smalloo/research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/results/trial_000"
+    },
+    {
+      "trial": 1,
+      "params": {
+        "amfd_k": 3.8169867646444433,
+        "lrmc_l": 2,
+        "lrmc_k": 2.5967842296218344,
+        "pf_length": 4,
+        "pf_radius": 8.828983473366204,
+        "pf_min_occurrences": 5,
+        "score": 0.95
+      },
+      "objective": 0.0,
+      "metrics": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "ap": 0.0,
+        "mAP": 0.0,
+        "tp": 0,
+        "fp": 16,
+        "fn": 12
+      },
+      "algorithm": {
+        "name": "mmb_complete",
+        "frames_loaded": 12,
+        "segments": 1,
+        "amfd_k": 3.8169867646444433,
+        "lrmc_l": 2,
+        "lrmc_k": 2.5967842296218344,
+        "pf_length": 4,
+        "pf_radius": 8.828983473366204,
+        "pf_min_occurrences": 5
+      },
+      "evaluated_images": 12,
+      "predictions": 16,
+      "ground_truth": 12,
+      "output_dir": "/Users/edsontm/dev/smalloo/research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/results/trial_001"
+    }
+  ]
+}
