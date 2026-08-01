@@ -1,0 +1,58 @@
+{
+  "experiment": {
+    "slug": "v4_mmb_hard_negative_mining",
+    "title": "MMB Hard Negative Mining",
+    "baseline": "MMB proxy",
+    "objective": "Test whether hard-negative mining focused behavior reduces repeated false-positive patterns while preserving recall under the VISO protocol."
+  },
+  "intervention": {
+    "strategy": "hard_negative_mining",
+    "hard_negative_focus": "dense_and_border_failure_modes",
+    "changed_variable": "negative_sampling_policy"
+  },
+  "dataset": {
+    "variant": "coco",
+    "subset": "ship",
+    "default_profile": "devsample",
+    "notes": [
+      "Always start with devsample before any full-dataset run on VISO.",
+      "Keep seed set and evaluation protocol identical to v1 for comparability.",
+      "Single controlled variable: hard-negative focused policy."
+    ],
+    "splits": {
+      "train": {
+        "image_dir": "train2017",
+        "annotation_file": "instances_train2017.json"
+      },
+      "test": {
+        "image_dir": "test2017",
+        "annotation_file": "instances_test2017.json"
+      }
+    }
+  },
+  "execution": {
+    "seeds": [101, 202, 303, 404, 505],
+    "phases": [
+      {
+        "name": "smoke_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v4_mmb_hard_negative_mining --dataset-profile devsample",
+        "purpose": "Validate scaffold and dataset contract on devsample."
+      },
+      {
+        "name": "smoke_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v4_mmb_hard_negative_mining --dataset-profile devsample",
+        "purpose": "Freeze deterministic devsample run manifests."
+      },
+      {
+        "name": "full_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v4_mmb_hard_negative_mining --dataset-profile viso",
+        "purpose": "Validate full dataset availability before benchmark runs."
+      },
+      {
+        "name": "full_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v4_mmb_hard_negative_mining --dataset-profile viso",
+        "purpose": "Freeze full VISO run manifests for reporting."
+      }
+    ]
+  }
+}

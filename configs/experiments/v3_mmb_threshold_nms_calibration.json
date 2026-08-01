@@ -1,0 +1,58 @@
+{
+  "experiment": {
+    "slug": "v3_mmb_threshold_nms_calibration",
+    "title": "MMB Threshold NMS Calibration",
+    "baseline": "MMB proxy",
+    "objective": "Test whether score-threshold and overlap suppression calibration reduces false positives in dense scenes under the same VISO protocol."
+  },
+  "intervention": {
+    "strategy": "threshold_nms_calibration",
+    "score_threshold": 0.5,
+    "changed_variable": "postprocess_calibration"
+  },
+  "dataset": {
+    "variant": "coco",
+    "subset": "ship",
+    "default_profile": "devsample",
+    "notes": [
+      "Always start with devsample before any full-dataset run on VISO.",
+      "Keep seed set and evaluation protocol identical to v1 for comparability.",
+      "Single controlled variable: threshold and overlap suppression calibration."
+    ],
+    "splits": {
+      "train": {
+        "image_dir": "train2017",
+        "annotation_file": "instances_train2017.json"
+      },
+      "test": {
+        "image_dir": "test2017",
+        "annotation_file": "instances_test2017.json"
+      }
+    }
+  },
+  "execution": {
+    "seeds": [101, 202, 303, 404, 505],
+    "phases": [
+      {
+        "name": "smoke_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v3_mmb_threshold_nms_calibration --dataset-profile devsample",
+        "purpose": "Validate scaffold and dataset contract on devsample."
+      },
+      {
+        "name": "smoke_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v3_mmb_threshold_nms_calibration --dataset-profile devsample",
+        "purpose": "Freeze deterministic devsample run manifests."
+      },
+      {
+        "name": "full_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v3_mmb_threshold_nms_calibration --dataset-profile viso",
+        "purpose": "Validate full dataset availability before benchmark runs."
+      },
+      {
+        "name": "full_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v3_mmb_threshold_nms_calibration --dataset-profile viso",
+        "purpose": "Freeze full VISO run manifests for reporting."
+      }
+    ]
+  }
+}

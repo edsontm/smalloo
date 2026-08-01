@@ -96,6 +96,7 @@ def build_run_manifest(slug: str, dataset_profile_name: str | None = None) -> Di
     dataset_profile_name = dataset_profile_name or experiment_config['dataset']['default_profile']
     dataset_root = resolve_dataset_root(dataset_profile_name)
     runtime_profile = apply_runtime_environment()
+    intervention = experiment_config.get('intervention', {})
 
     return {
         'slug': slug,
@@ -105,6 +106,7 @@ def build_run_manifest(slug: str, dataset_profile_name: str | None = None) -> Di
         'dataset': experiment_config['dataset'],
         'baseline': experiment_config['experiment']['baseline'],
         'objective': experiment_config['experiment']['objective'],
+        'intervention': intervention,
         'seeds': experiment_config['execution']['seeds'],
         'phases': experiment_config['execution']['phases'],
         'runtime': runtime_profile.to_dict(),

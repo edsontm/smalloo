@@ -1,0 +1,58 @@
+{
+  "experiment": {
+    "slug": "v2_mmb_tiling_overlap",
+    "title": "MMB Tiling Overlap",
+    "baseline": "MMB proxy",
+    "objective": "Test whether tiling with overlap reduces errors in dense scenes and border-near objects while preserving the VISO evaluation protocol."
+  },
+  "intervention": {
+    "strategy": "tiling_overlap",
+    "tile_overlap_ratio": 0.25,
+    "changed_variable": "tiling_coverage"
+  },
+  "dataset": {
+    "variant": "coco",
+    "subset": "ship",
+    "default_profile": "devsample",
+    "notes": [
+      "Always start with devsample before any full-dataset run on VISO.",
+      "Keep seed set and evaluation protocol identical to v1 for comparability.",
+      "Single controlled variable: tiling overlap strategy."
+    ],
+    "splits": {
+      "train": {
+        "image_dir": "train2017",
+        "annotation_file": "instances_train2017.json"
+      },
+      "test": {
+        "image_dir": "test2017",
+        "annotation_file": "instances_test2017.json"
+      }
+    }
+  },
+  "execution": {
+    "seeds": [101, 202, 303, 404, 505],
+    "phases": [
+      {
+        "name": "smoke_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v2_mmb_tiling_overlap --dataset-profile devsample",
+        "purpose": "Validate scaffold and dataset contract on devsample."
+      },
+      {
+        "name": "smoke_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v2_mmb_tiling_overlap --dataset-profile devsample",
+        "purpose": "Freeze deterministic devsample run manifests."
+      },
+      {
+        "name": "full_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v2_mmb_tiling_overlap --dataset-profile viso",
+        "purpose": "Validate full dataset availability before benchmark runs."
+      },
+      {
+        "name": "full_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v2_mmb_tiling_overlap --dataset-profile viso",
+        "purpose": "Freeze full VISO run manifests for reporting."
+      }
+    ]
+  }
+}

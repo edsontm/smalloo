@@ -37,6 +37,7 @@ def main() -> None:
             'seed': seed,
             'baseline': manifest['baseline'],
             'objective': manifest['objective'],
+            'intervention': manifest.get('intervention', {}),
             'phases': manifest['phases'],
             'runtime': manifest['runtime'],
         }

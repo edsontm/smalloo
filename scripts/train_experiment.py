@@ -39,7 +39,7 @@ def main() -> None:
     if args.smoke_steps > 0:
         trainer = resolve_trainer(args.trainer)
         for seed in seeds:
-            smoke_runs.append(trainer(seed=seed, steps=args.smoke_steps))
+            smoke_runs.append(trainer(seed=seed, steps=args.smoke_steps, manifest=manifest))
 
     payload = {
         'slug': manifest['slug'],

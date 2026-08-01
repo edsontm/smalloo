@@ -1,2 +1,7 @@
 torch
 numpy
+Pillow
+PyYAML
+imageio
+opencv-python-headless
+bayesian-optimization

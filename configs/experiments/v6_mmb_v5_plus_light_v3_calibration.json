@@ -1,0 +1,53 @@
+{
+  "experiment": {
+    "slug": "v6_mmb_v5_plus_light_v3_calibration",
+    "title": "MMB V5 + Light V3 Calibration",
+    "baseline": "MMB proxy",
+    "objective": "Apply a light threshold sweep over v5 and select the best F1 on VISO while constraining recall drop."
+  },
+  "intervention": {
+    "strategy": "v6_v5_plus_light_v3",
+    "tile_overlap_ratio": 0.25,
+    "hard_negative_focus": "dense_and_border_failure_modes",
+    "calibration_mode": "sweep_select",
+    "threshold_candidates": [0.45, 0.5, 0.55],
+    "baseline_threshold": 0.5,
+    "max_recall_drop": 0.02,
+    "changed_variable": "light_calibration_over_v5"
+  },
+  "dataset": {
+    "variant": "coco",
+    "subset": "ship",
+    "default_profile": "viso",
+    "notes": [
+      "Use viso for reported metrics and conclusions.",
+      "Keep seed set and evaluation protocol identical to v1-v5 for comparability.",
+      "Single controlled change versus v5: add light threshold calibration sweep."
+    ],
+    "splits": {
+      "train": {
+        "image_dir": "train2017",
+        "annotation_file": "instances_train2017.json"
+      },
+      "test": {
+        "image_dir": "test2017",
+        "annotation_file": "instances_test2017.json"
+      }
+    }
+  },
+  "execution": {
+    "seeds": [101, 202, 303, 404, 505],
+    "phases": [
+      {
+        "name": "full_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v6_mmb_v5_plus_light_v3_calibration --dataset-profile viso",
+        "purpose": "Validate full dataset availability before benchmark runs."
+      },
+      {
+        "name": "full_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v6_mmb_v5_plus_light_v3_calibration --dataset-profile viso",
+        "purpose": "Freeze full VISO run manifests for reporting."
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+registration:
+  enabled: true
+  method: affine
+  max_features: 1000
+  good_match_ratio: 0.25
+
+background:
+  method: robust_pca
+  temporal_window: 20
+  alpha: 0.05
+  max_iter: 60
+  tol: 1.0e-6
+
+foreground:
+  threshold: adaptive
+  morphology_kernel: 3
+  min_component_size: 5
+
+detection:
+  min_area: 5
+  max_area: 500
+
+tracking:
+  max_distance: 50
+  max_missing_frames: 10
+
+output:
+  root: results/mmb

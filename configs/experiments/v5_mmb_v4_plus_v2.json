@@ -1,0 +1,49 @@
+{
+  "experiment": {
+    "slug": "v5_mmb_v4_plus_v2",
+    "title": "MMB Hard-Negative + Tiling Overlap",
+    "baseline": "MMB proxy",
+    "objective": "Combine hard-negative behavior with tiling overlap behavior to improve F1 while preserving high recall on VISO ship."
+  },
+  "intervention": {
+    "strategy": "v5_v4_plus_v2",
+    "tile_overlap_ratio": 0.25,
+    "hard_negative_focus": "dense_and_border_failure_modes",
+    "changed_variable": "combined_sampling_and_coverage"
+  },
+  "dataset": {
+    "variant": "coco",
+    "subset": "ship",
+    "default_profile": "viso",
+    "notes": [
+      "Use viso for reported metrics and conclusions.",
+      "Keep seed set and evaluation protocol identical to v1-v4 for comparability.",
+      "Single controlled change versus v4: add tiling-overlap behavior."
+    ],
+    "splits": {
+      "train": {
+        "image_dir": "train2017",
+        "annotation_file": "instances_train2017.json"
+      },
+      "test": {
+        "image_dir": "test2017",
+        "annotation_file": "instances_test2017.json"
+      }
+    }
+  },
+  "execution": {
+    "seeds": [101, 202, 303, 404, 505],
+    "phases": [
+      {
+        "name": "full_validation",
+        "entrypoint": "python3 scripts/validate_experiment.py --slug v5_mmb_v4_plus_v2 --dataset-profile viso",
+        "purpose": "Validate full dataset availability before benchmark runs."
+      },
+      {
+        "name": "full_manifest_generation",
+        "entrypoint": "python3 scripts/materialize_runs.py --slug v5_mmb_v4_plus_v2 --dataset-profile viso",
+        "purpose": "Freeze full VISO run manifests for reporting."
+      }
+    ]
+  }
+}

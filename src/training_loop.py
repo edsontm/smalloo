@@ -9,7 +9,7 @@ def _torch_available() -> bool:
     return importlib.util.find_spec('torch') is not None
 
 
-def run_training_smoke(seed: int, steps: int = 3) -> Dict[str, Any]:
+def run_training_smoke(seed: int, steps: int = 3, **_: Any) -> Dict[str, Any]:
     if not _torch_available():
         return {
             'status': 'skipped',

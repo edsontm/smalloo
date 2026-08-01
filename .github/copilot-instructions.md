@@ -17,3 +17,9 @@ Read AGENTS.md first.
 
 Use path-scoped instruction files in .github/instructions.
 These files refine behavior by file type and directory, while AGENTS.md and docs/ai remain the source of truth.
+
+## Dataset Profile Policy
+
+- `devsample` is for smoke tests and local iteration only.
+- Do not use `devsample` metrics in final experiment reporting.
+- Use `viso` for all reported results, comparisons, and conclusions.

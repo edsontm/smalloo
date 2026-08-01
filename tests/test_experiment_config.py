@@ -140,11 +140,77 @@ class ExperimentConfigTests(unittest.TestCase):
         self.assertIn('smoke', trainers)
         self.assertIn('mmb', trainers)
 
-    def test_mmb_trainer_is_explicitly_blocked_until_implemented(self) -> None:
+    def test_mmb_trainer_returns_viso_metrics_payload(self) -> None:
+        manifest = build_run_manifest('v1_mmb_baseline_reproduction', 'devsample')
         trainer = resolve_trainer('mmb')
-        result = trainer(seed=101, steps=2)
+        result = trainer(seed=101, steps=1, manifest=manifest)
+        self.assertEqual(result['status'], 'completed')
+        self.assertIn('metrics', result)
+        self.assertIn('precision', result['metrics'])
+        self.assertIn('recall', result['metrics'])
+        self.assertIn('f1', result['metrics'])
+        self.assertIn('ap', result['metrics'])
+        self.assertIn('mAP', result['metrics'])
+
+    def test_manifest_includes_intervention_for_follow_up_versions(self) -> None:
+        manifest = build_run_manifest('v2_mmb_tiling_overlap', 'devsample')
+        self.assertIn('intervention', manifest)
+        self.assertEqual(manifest['intervention'].get('strategy'), 'tiling_overlap')
+
+    def test_mmb_variants_expose_strategy_specific_trainer_mode(self) -> None:
+        trainer = resolve_trainer('mmb')
+        cases = [
+            ('v2_mmb_tiling_overlap', 'tiling_overlap'),
+            ('v3_mmb_threshold_nms_calibration', 'threshold_nms_calibration'),
+            ('v4_mmb_hard_negative_mining', 'hard_negative_mining'),
+        ]
+        for slug, strategy in cases:
+            manifest = build_run_manifest(slug, 'devsample')
+            result = trainer(seed=101, steps=1, manifest=manifest)
+            self.assertEqual(result['status'], 'completed')
+            self.assertEqual(result['intervention'].get('strategy'), strategy)
+            self.assertIn(f'mmb_proxy::{strategy}', result['trainer_mode'])
+
+    def test_mmb_proxy_disables_test_label_conditioning(self) -> None:
+        manifest = build_run_manifest('v1_mmb_baseline_reproduction', 'viso')
+        trainer = resolve_trainer('mmb')
+        result = trainer(seed=101, steps=1, manifest=manifest)
+        self.assertEqual(result['status'], 'completed')
+        self.assertIn('leakage_controls', result)
+        self.assertFalse(result['leakage_controls']['label_conditioning_on_test'])
+
+    def test_v6_calibration_uses_train_split(self) -> None:
+        manifest = build_run_manifest('v6_mmb_v5_plus_light_v3_calibration', 'viso')
+        trainer = resolve_trainer('mmb')
+        result = trainer(seed=101, steps=1, manifest=manifest)
+        self.assertEqual(result['status'], 'completed')
+        self.assertIsNotNone(result.get('calibration'))
+        self.assertEqual(result['calibration']['calibration_split'], 'train')
+        self.assertEqual(result['calibration']['evaluation_split'], 'test')
+
+    def test_real_mmb_requires_model_path(self) -> None:
+        manifest = build_run_manifest('v1_mmb_baseline_reproduction', 'devsample')
+        manifest['intervention'] = {
+            'strategy': 'baseline_proxy',
+            'inference_mode': 'real',
+        }
+        trainer = resolve_trainer('mmb')
+        result = trainer(seed=101, steps=1, manifest=manifest)
         self.assertEqual(result['status'], 'blocked')
-        self.assertEqual(result['reason'], 'mmb_runtime_not_implemented')
+        self.assertEqual(result['reason'], 'real_inference_failed')
+        self.assertIn('model', result.get('error', '').lower())
+
+    def test_complete_mmb_mode_runs(self) -> None:
+        manifest = build_run_manifest('v1_mmb_baseline_reproduction', 'devsample')
+        manifest['intervention'] = {
+            'strategy': 'baseline_proxy',
+            'inference_mode': 'complete',
+        }
+        trainer = resolve_trainer('mmb')
+        result = trainer(seed=101, steps=1, manifest=manifest)
+        self.assertEqual(result['status'], 'completed')
+        self.assertIn('algorithm', result)
+        self.assertEqual((result.get('algorithm') or {}).get('name'), 'mmb_complete')
 
 
 if __name__ == '__main__':

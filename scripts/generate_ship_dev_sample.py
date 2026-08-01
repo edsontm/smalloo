@@ -13,10 +13,7 @@ COCO_ROOT = ROOT / 'VISO' / 'coco'
 DEV_SAMPLE_ROOT = ROOT / 'devsample' / 'coco'
 DEFAULT_DATASETS = ('ship',)
 FRACTION = 0.10
-MIN_PER_STRATUM = 10
-
-Stratum = Tuple[str, int]
-
+MIN_PER_SPLIT = 10
 
 def ensure_clean_dir(path: Path) -> None:
     if path.exists():
@@ -24,24 +21,12 @@ def ensure_clean_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
 
 
-def evenly_spaced_indices(length: int, sample_size: int) -> List[int]:
-    if sample_size >= length:
-        return list(range(length))
-    if sample_size <= 1:
-        return [length // 2]
-    step = (length - 1) / (sample_size - 1)
-    chosen = []
-    for idx in range(sample_size):
-        candidate = int(round(idx * step))
-        if chosen and candidate <= chosen[-1]:
-            candidate = chosen[-1] + 1
-        chosen.append(min(candidate, length - (sample_size - idx)))
-    return chosen
-
-
-def select_evenly(items: List[dict], sample_size: int) -> List[dict]:
-    indices = evenly_spaced_indices(len(items), sample_size)
-    return [items[index] for index in indices]
+def select_contiguous(items: List[dict], sample_size: int) -> List[dict]:
+    if sample_size >= len(items):
+        return items
+    start = max(0, (len(items) - sample_size) // 2)
+    end = start + sample_size
+    return items[start:end]
 
 
 def copy_many(paths: Iterable[Tuple[Path, Path]]) -> None:
@@ -78,25 +63,9 @@ def build_subset(source_dir: Path, target_dir: Path, ann_split: str, image_split
     for annotation in data['annotations']:
         annotations_by_image[annotation['image_id']].append(annotation)
 
-    images_by_stratum: Dict[Stratum, List[dict]] = defaultdict(list)
-    for image in sorted(data['images'], key=lambda item: item['file_name']):
-        key = (f"{image['width']}x{image['height']}", len(annotations_by_image[image['id']]))
-        images_by_stratum[key].append(image)
-
-    selected_images: List[dict] = []
-    selected_annotations: List[dict] = []
-    stratum_summary = {}
-
-    for stratum, images in sorted(images_by_stratum.items()):
-        sample_size = min(len(images), max(MIN_PER_STRATUM, math.ceil(len(images) * FRACTION)))
-        chosen_images = select_evenly(images, sample_size)
-        selected_images.extend(chosen_images)
-        for image in chosen_images:
-            selected_annotations.extend(annotations_by_image[image['id']])
-        stratum_summary[f'{stratum[0]}__labels_{stratum[1]}'] = {
-            'source_images': len(images),
-            'sample_images': len(chosen_images),
-        }
+    images_sorted = sorted(data['images'], key=lambda item: item['file_name'])
+    sample_size = min(len(images_sorted), max(MIN_PER_SPLIT, math.ceil(len(images_sorted) * FRACTION)))
+    selected_images: List[dict] = select_contiguous(images_sorted, sample_size)
 
     selected_image_ids = {image['id'] for image in selected_images}
     selected_annotations = [annotation for annotation in data['annotations'] if annotation['image_id'] in selected_image_ids]
@@ -134,7 +103,12 @@ def build_subset(source_dir: Path, target_dir: Path, ann_split: str, image_split
         'sample_images': len(selected_images),
         'sample_annotations': len(selected_annotations),
         'labels_per_image': dict(sorted(labels_per_image.items())),
-        'strata': stratum_summary,
+        'temporal_window': {
+            'source_images': len(images_sorted),
+            'sample_images': len(selected_images),
+            'start_file': selected_images[0]['file_name'] if selected_images else None,
+            'end_file': selected_images[-1]['file_name'] if selected_images else None,
+        },
     }
 
 
@@ -153,10 +127,10 @@ def generate_dataset(dataset_name: str) -> Dict[str, object]:
         'target': str(target_dir.relative_to(ROOT)),
         'layout_note': 'Rename devsample to VISO to reuse code paths that expect the original dataset root.',
         'sampling': {
-            'strategy': 'deterministic_even_spacing_per_stratum',
+            'strategy': 'deterministic_contiguous_window_per_split',
             'fraction': FRACTION,
-            'min_per_stratum': MIN_PER_STRATUM,
-            'strata': ['image_resolution', 'labels_per_image'],
+            'min_per_split': MIN_PER_SPLIT,
+            'preserve_temporality': True,
         },
         'splits': summaries,
     }
@@ -164,8 +138,8 @@ def generate_dataset(dataset_name: str) -> Dict[str, object]:
     (target_dir / 'README.md').write_text(
         f'# {dataset_name}\n\n'
         f'Subamostra deterministica de VISO/coco/{dataset_name} para desenvolvimento e testes rapidos.\n\n'
-        '- Estratificacao por resolucao da imagem e numero de rotulos por imagem.\n'
-        '- Selecao sistematica ao longo da ordem dos arquivos para cobrir o conjunto inteiro.\n'
+        '- Selecao por janela temporal contigua em cada split para preservar continuidade entre frames.\n'
+        '- Esta variante e apropriada para metodos dependentes de temporalidade, como o MMB.\n'
         '- Conteudo: imagens, JSON COCO por split e XMLs correspondentes.\n'
         '- Estrutura espelhada de VISO para permitir alternancia por renomeacao da pasta raiz.\n'
     )
