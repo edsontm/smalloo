@@ -8,6 +8,9 @@ This workspace follows the repository contract in AGENTS.md and the canonical pr
 - Every experiment must preserve reproducibility assets inside the repository.
 - Negative results are first-class outputs and should be recorded, not discarded.
 - Every applied idea should use a versioned experiment slug such as v1_better_registration or v2_better_registration.
+- Backlog-first rule is mandatory: register the idea in `research/ideas/backlog.md` before implementation and update the same entry after execution with outcome and evidence links.
+
+Canonical reference for this rule: `docs/ai/experiment-protocol.md` (Idea Intake Gate).
 
 ## Main Folders
 

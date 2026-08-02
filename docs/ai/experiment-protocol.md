@@ -16,6 +16,17 @@ Each experiment must define:
 - Reproducibility metadata
 - Conclusion and decision
 
+## Idea Intake Gate
+
+- Every new idea must be registered in `research/ideas/backlog.md` before implementation starts.
+- Backlog entries must include at minimum:
+- idea title
+- short hypothesis
+- expected gain
+- risk/cost notes
+- status (`proposed`, `running`, `validated`, `rejected`)
+- When an implementation is finished, the same backlog entry must be updated with outcome (`worked` or `did not work`) and evidence pointer (report/artifact path).
+
 ## Variable Isolation
 
 - Change one primary variable per experiment version.
