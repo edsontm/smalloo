@@ -346,6 +346,163 @@ def _amfd_components(
     return per_frame
 
 
+def _tile_adaptive_binary(
+    response: np.ndarray,
+    k: float,
+    valid: np.ndarray | None,
+    tile_size: int,
+) -> np.ndarray:
+    h, w = response.shape
+    out = np.zeros((h, w), dtype=np.uint8)
+    tile = max(8, int(tile_size))
+
+    for y0 in range(0, h, tile):
+        y1 = min(h, y0 + tile)
+        for x0 in range(0, w, tile):
+            x1 = min(w, x0 + tile)
+            patch = response[y0:y1, x0:x1]
+
+            patch_valid = None
+            if valid is not None:
+                patch_valid = valid[y0:y1, x0:x1]
+
+            mean_v, std_v = _masked_mean_std(patch, patch_valid)
+            thr = float(mean_v + (k * std_v))
+            patch_binary = (patch >= thr).astype(np.uint8)
+            if patch_valid is not None:
+                patch_binary = (patch_binary * patch_valid).astype(np.uint8)
+            out[y0:y1, x0:x1] = patch_binary
+    return out
+
+
+def _ramfd_components(
+    frames: List[np.ndarray],
+    k: float = 4.0,
+    min_area: int = 5,
+    max_area: int = 80,
+    min_aspect_ratio: float = 1.0,
+    max_aspect_ratio: float = 6.0,
+    valid_masks: List[np.ndarray] | None = None,
+    clutter_active_ratio: float = 0.35,
+    clutter_dilate_kernel: int = 3,
+    use_tile_adaptive_threshold: bool = True,
+    tile_size: int = 64,
+    clutter_require_static_edge: bool = False,
+    clutter_edge_percentile: float = 75.0,
+    use_dark_water_gate: bool = False,
+    water_intensity_percentile: float = 55.0,
+) -> Dict[int, List[Component]]:
+    """Refined AMFD with persistent-clutter suppression.
+
+    The baseline AMFD tends to fire repeatedly on static infrastructure edges.
+    R-AMFD first builds provisional motion masks, then suppresses pixels that are
+    active in many frames (persistent clutter), and finally extracts components.
+    """
+
+    per_frame: Dict[int, List[Component]] = {idx: [] for idx in range(len(frames))}
+    if len(frames) < 3:
+        return per_frame
+
+    responses: List[np.ndarray] = []
+    provisional: List[np.ndarray] = []
+    valid_triplets: List[np.ndarray | None] = []
+
+    for t in range(1, len(frames) - 1):
+        i_prev = frames[t - 1]
+        i_curr = frames[t]
+        i_next = frames[t + 1]
+
+        dt1 = np.abs(i_curr - i_prev)
+        dt2 = np.abs(i_next - i_prev)
+        dt3 = np.abs(i_next - i_curr)
+        response = (dt1 + dt2 + dt3) / 3.0
+
+        valid = None
+        if valid_masks is not None and len(valid_masks) > t + 1:
+            valid = (valid_masks[t - 1] & valid_masks[t] & valid_masks[t + 1]).astype(np.uint8)
+
+        if use_tile_adaptive_threshold:
+            binary = _tile_adaptive_binary(response=response, k=k, valid=valid, tile_size=tile_size)
+        else:
+            mean_v, std_v = _masked_mean_std(response, valid)
+            threshold = float(mean_v + (k * std_v))
+            binary = (response >= threshold).astype(np.uint8)
+            if valid is not None:
+                binary = (binary * valid).astype(np.uint8)
+
+        responses.append(response)
+        provisional.append(binary)
+        valid_triplets.append(valid)
+
+    # Persistent activations are likely static clutter from registration jitter.
+    stack = np.stack(provisional, axis=0).astype(np.float32)
+    activation_ratio = stack.mean(axis=0)
+    clutter_mask = (activation_ratio >= float(clutter_active_ratio)).astype(np.uint8)
+
+    static_ref: np.ndarray | None = None
+    if clutter_require_static_edge or use_dark_water_gate:
+        static_ref = np.median(np.stack(frames, axis=0), axis=0).astype(np.float32)
+
+    if clutter_require_static_edge:
+        # Keep suppression focused on static structures (pier/building edges),
+        # avoiding over-suppressing moving targets over low-texture water.
+        assert static_ref is not None
+        gx = np.zeros_like(static_ref)
+        gy = np.zeros_like(static_ref)
+        gx[:, 1:] = np.abs(static_ref[:, 1:] - static_ref[:, :-1])
+        gy[1:, :] = np.abs(static_ref[1:, :] - static_ref[:-1, :])
+        grad = np.sqrt((gx * gx) + (gy * gy))
+        grad_thr = float(np.percentile(grad, float(np.clip(clutter_edge_percentile, 50.0, 99.5))))
+        static_edge_mask = (grad >= grad_thr).astype(np.uint8)
+        clutter_mask = (clutter_mask * static_edge_mask).astype(np.uint8)
+
+    if int(clutter_mask.sum()) > 0 and clutter_dilate_kernel > 1:
+        clutter_mask = _dilate(clutter_mask, kernel_size=int(clutter_dilate_kernel))
+
+    water_thr = None
+    if use_dark_water_gate:
+        assert static_ref is not None
+        water_thr = float(np.percentile(static_ref, float(np.clip(water_intensity_percentile, 5.0, 95.0))))
+
+    for local_t, binary in enumerate(provisional):
+        t = local_t + 1
+        valid = valid_triplets[local_t]
+
+        refined = (binary * (1 - clutter_mask)).astype(np.uint8)
+        if valid is not None:
+            refined = (refined * valid).astype(np.uint8)
+        refined = _morphology(refined)
+
+        comps = _filter_components(
+            _connected_components(refined, frame_index=t),
+            min_area=min_area,
+            max_area=max_area,
+            min_aspect_ratio=min_aspect_ratio,
+            max_aspect_ratio=max_aspect_ratio,
+        )
+
+        if water_thr is not None and static_ref is not None:
+            gated: List[Component] = []
+            h, w = static_ref.shape
+            for comp in comps:
+                x1 = max(0, int(comp.x))
+                y1 = max(0, int(comp.y))
+                x2 = min(w, int(comp.x + comp.w))
+                y2 = min(h, int(comp.y + comp.h))
+                if x1 >= x2 or y1 >= y2:
+                    continue
+                patch = static_ref[y1:y2, x1:x2]
+                if patch.size == 0:
+                    continue
+                if float(np.median(patch)) <= water_thr:
+                    gated.append(comp)
+            comps = gated
+
+        per_frame[t] = comps
+
+    return per_frame
+
+
 def _lrmc_components(
     frames: List[np.ndarray],
     amfd_components: Dict[int, List[Component]],
