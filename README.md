@@ -1,84 +1,150 @@
 # smalloo
 
-AI-native research and engineering repository for small object detection in satellite videos.
+Research and engineering repository for small-vessel detection in satellite videos, with emphasis on a classical and interpretable pipeline based on motion, water color, and trajectory filtering.
 
-## Start Here
+## Main idea
 
-- Repository contract: AGENTS.md
-- Contributor guide: CONTRIBUTING.md
-- AI workflow documentation: docs/ai/project-overview.md
+The central proposal is to combine:
 
-## Single Source of Truth
+- candidate detection via RAMFD;
+- filtering by water-color and water-environment similarity;
+- trajectory- and wake-guided selection to reduce false positives;
+- a robust fallback rule when trajectory-based selection is unreliable.
 
-Detailed policies are centralized in docs/ai.
-Tool-specific files (Claude, Copilot, and others) should reference AGENTS.md and docs/ai instead of redefining rules.
+In short, the method aims to improve precision without losing the ability to recover real vessels in difficult scenarios.
 
-## Core Commands
+## Main results
 
-- Validate experiment:
-	- python3 scripts/validate_experiment.py --slug <slug> --dataset-profile devsample
-- Materialize deterministic runs:
-	- python3 scripts/materialize_runs.py --slug <slug> --dataset-profile devsample
-- Smoke train:
-	- python3 scripts/train_experiment.py --slug <slug> --dataset-profile devsample --trainer smoke --smoke-steps 2
-- Tests:
-	- python3 -m unittest discover -s tests
+The results reported for the full method in the current experiment were:
 
-## Documentation Map
+- Precision: 0.9478
+- Recall: 0.9083
+- F1: 0.9277
 
-- docs/ai: canonical engineering and research process
-- docs/architecture: architecture overview and ADRs
-- docs/experiments: experiment documentation templates
-- docs/reports: reporting conventions
+For reference, the compared baseline achieved:
 
-## MMB Baseline (Complete Classical Pipeline)
+- Precision: 0.8538
+- Recall: 0.9250
+- F1: 0.8880
 
-This repository now includes a full non-deep-learning Motion Modeling Baseline (MMB) implementation aligned with the VISO paper's classical motion-modeling direction.
+In addition, ablations of the method showed a sharp drop when critical components were removed, confirming the role of the water filter and trajectory-based selection.
 
-Implementation modules are in src/mmb:
+## How to install
 
-- registration.py: frame registration (ORB+affine with deterministic fallback)
-- background.py: temporal median, running average, and robust PCA (IALM)
-- foreground.py: frame-background differencing + normalization + threshold + morphology
-- detection.py: connected-component motion detection and bounding boxes
-- tracking.py: multi-object tracking with Kalman prediction + Hungarian assignment
-- pipeline.py: end-to-end execution and artifact export
-- metrics.py: detection and tracking metrics helpers
-- visualization.py: detection/track overlays and video rendering
+From a clone of the repository:
 
-### Mathematical Formulation
+```bash
+cd smalloo
+python3 -m pip install .
+```
 
-The implementation follows the paper's temporal-motion strategy:
+Or, for development:
 
-- Registration removes global motion before local motion analysis.
-- Background decomposition uses low-rank + sparse separation:
-	X = L + S
-- Foreground is extracted from absolute difference:
-	D_t = |I_t - B_t|
-- AMFD-inspired differencing is implemented in the classical MMB mode used by src/viso_mmb.py.
-- Tracking uses a constant-velocity state model x = [x, y, vx, vy] with assignment over frame-wise detections.
+```bash
+cd smalloo
+python3 -m pip install -e .
+```
 
-### Reproducible Experiment Run
+## How to run
 
-Run the standalone MMB experiment pipeline:
+The main experiment can be run with:
 
-- python3 experiments/run_mmb.py --config configs/mmb.yaml --video path/to/video.mp4
+```bash
+smalloo-ramfd-water-knn --max-images 120
+```
 
-Generated outputs under results/mmb include:
+Optionally, you can pass arguments such as:
 
-- detections.json
-- tracks.json
-- visualization.mp4
-- metrics.json
-- experiment_results.csv
+```bash
+smalloo-ramfd-water-knn --max-images 120 --tag my_run --annotations-path path/to/annotations.json --image-dir path/to/images
+```
 
-### Tests
+## Important structure
 
-MMB-specific tests:
+- [scripts/ramfd_water_knn_experiment.py](scripts/ramfd_water_knn_experiment.py): main experiment pipeline.
+- [src/mmb_complete.py](src/mmb_complete.py): implementation of the RAMFD and trajectory-filtering stages.
+- [src/viso_evaluation.py](src/viso_evaluation.py): evaluation and metrics in a format compatible with the VISO protocol.
+- [research/papers/aaai_ramfd_water_knn_paper.tex](research/papers/aaai_ramfd_water_knn_paper.tex): LaTeX version of the paper.
 
-- tests/test_registration.py
-- tests/test_background.py
-- tests/test_foreground.py
-- tests/test_detection.py
-- tests/test_tracking.py
-- tests/test_pipeline.py
+## Reproducing the paper results
+
+To recreate the main results from a fresh clone of the repository, follow this workflow:
+
+### 1. Prepare the environment
+
+```bash
+git clone <repository-url>
+cd smalloo
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install -e .
+```
+
+### 2. Check the data
+
+The experiment expects the data in VISO/COCO format under the repository tree:
+
+- [VISO/coco/ship/Annotations/instances_train2017.json](VISO/coco/ship/Annotations/instances_train2017.json)
+- [VISO/coco/ship/train2017](VISO/coco/ship/train2017)
+- [VISO/coco/ship/Annotations/instances_test2017.json](VISO/coco/ship/Annotations/instances_test2017.json)
+- [VISO/coco/ship/test2017](VISO/coco/ship/test2017)
+
+If your local layout differs, pass the paths explicitly on the command line.
+
+### 3. Run the main result
+
+```bash
+smalloo-ramfd-water-knn \
+  --max-images 120 \
+  --tag reproducibility_main \
+  --train-ratio 0.6 \
+  --val-ratio 0.2 \
+  --test-ratio 0.2
+```
+
+Artifacts will be generated inside:
+
+- [research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/debug](research/experiments/v9_mmb_ship_bayesian_validation_tuning/artifacts/debug)
+
+### 4. Run the ablations
+
+```bash
+smalloo-ramfd-water-knn \
+  --max-images 120 \
+  --tag ablation_no_traj_no_wake \
+  --use-single-tip-selection false \
+  --use-trajectory-tip-filter false \
+  --use-wake-triangle-filter false
+```
+
+```bash
+smalloo-ramfd-water-knn \
+  --max-images 120 \
+  --tag ablation_traj_no_wake \
+  --use-single-tip-selection true \
+  --use-trajectory-tip-filter true \
+  --use-wake-triangle-filter false
+```
+
+### 5. Check the metrics
+
+After each run, inspect the generated report.json file in the run folder. The main result expected is close to:
+
+- Precision: 0.9478
+- Recall: 0.9083
+- F1: 0.9277
+
+### Development and tests
+
+To run the tests:
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+For repository documentation and internal rules, see:
+
+- [AGENTS.md](AGENTS.md)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [docs/ai/project-overview.md](docs/ai/project-overview.md)

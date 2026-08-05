@@ -134,6 +134,28 @@ def _make_split_indices(n: int, train_ratio: float, val_ratio: float, test_ratio
     return train_idx, val_idx, test_idx
 
 
+def _make_train_val_indices(n: int, train_ratio: float, val_ratio: float) -> Tuple[List[int], List[int]]:
+    if n <= 0:
+        return [], []
+
+    total = float(train_ratio + val_ratio)
+    if total <= 0.0:
+        raise ValueError("Train/validation ratios must sum to a positive value")
+
+    train_n = int(round(float(n) * (float(train_ratio) / total)))
+    val_n = n - train_n
+
+    train_n = max(1, min(n - 1, train_n))
+    val_n = max(1, n - train_n)
+
+    if train_n + val_n != n:
+        val_n = n - train_n
+
+    train_idx = list(range(train_n))
+    val_idx = list(range(train_n, train_n + val_n))
+    return train_idx, val_idx
+
+
 def _prepare_run_output_dir(base_dir: Path, tag: str, max_images: int, description: str) -> Path:
     base_dir.mkdir(parents=True, exist_ok=True)
     started_at = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -921,6 +943,51 @@ def _select_tip_component(
     return scored[0], motion
 
 
+def _select_final_boxes(
+    water_boxes: List[List[float]],
+    trajectory_comps: List[Component],
+    prev_tip: Component | None,
+    prev_prev_tip: Component | None,
+    keep_topk_candidates_per_frame: int,
+    use_single_tip_selection: bool,
+) -> List[List[float]]:
+    if not water_boxes:
+        return []
+
+    ordered = sorted(
+        water_boxes,
+        key=lambda box: (
+            float(box[2]) * float(box[3]),
+            float(box[0]),
+            float(box[1]),
+        ),
+        reverse=True,
+    )
+
+    if not bool(use_single_tip_selection):
+        if keep_topk_candidates_per_frame > 0:
+            ordered = ordered[: int(keep_topk_candidates_per_frame)]
+        return [list(map(float, box)) for box in ordered]
+
+    selected_tip, _ = _select_tip_component(
+        comps=trajectory_comps,
+        prev_tip=prev_tip,
+        prev_prev_tip=prev_prev_tip,
+    )
+    if selected_tip is None:
+        if keep_topk_candidates_per_frame > 0:
+            ordered = ordered[: int(keep_topk_candidates_per_frame)]
+            return [list(map(float, box)) for box in ordered]
+        return [list(map(float, ordered[0]))]
+
+    if keep_topk_candidates_per_frame > 0:
+        selected = ordered[: int(keep_topk_candidates_per_frame)]
+        if selected:
+            return [list(map(float, box)) for box in selected]
+
+    return [[float(selected_tip.x), float(selected_tip.y), float(selected_tip.w), float(selected_tip.h)]]
+
+
 def _legend_labels(tp_count: int, fp_count: int, fn_count: int) -> List[str]:
     return [f"TP ({tp_count})", f"FP ({fp_count})", f"FN ({fn_count})"]
 
@@ -1092,6 +1159,45 @@ def _contact_sheet(paths: List[Path], out_path: Path, cols: int) -> None:
     canvas.save(out_path)
 
 
+def _split_eval_context(
+    split_name: str,
+    train_images: List[Dict[str, Any]],
+    train_gray_frames: List[np.ndarray],
+    train_rgb_frames: List[np.ndarray],
+    eval_images: List[Dict[str, Any]],
+    eval_gray_frames: List[np.ndarray],
+    eval_rgb_frames: List[np.ndarray],
+    train_anns_by_image: Dict[int, List[Dict[str, Any]]],
+    eval_anns_by_image: Dict[int, List[Dict[str, Any]]],
+    train_category_id: int,
+    eval_category_id: int,
+    train_per_frame: Dict[int, List[Any]],
+    eval_per_frame: Dict[int, List[Any]],
+    train_image_dir: Path,
+    eval_image_dir: Path,
+) -> Dict[str, Any]:
+    if split_name in {"train", "validation"}:
+        return {
+            "images": train_images,
+            "gray_frames": train_gray_frames,
+            "rgb_frames": train_rgb_frames,
+            "anns_by_image": train_anns_by_image,
+            "category_id": train_category_id,
+            "per_frame": train_per_frame,
+            "image_dir": train_image_dir,
+        }
+
+    return {
+        "images": eval_images,
+        "gray_frames": eval_gray_frames,
+        "rgb_frames": eval_rgb_frames,
+        "anns_by_image": eval_anns_by_image,
+        "category_id": eval_category_id,
+        "per_frame": eval_per_frame,
+        "image_dir": eval_image_dir,
+    }
+
+
 def _summarize_gt_loss_from_split_results(split_results: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
     frames: List[Dict[str, Any]] = []
     for split_name in ["train", "validation", "test"]:
@@ -1119,6 +1225,27 @@ def _summarize_gt_loss_from_split_results(split_results: Dict[str, Dict[str, Any
         "stage_counts": dict(stage_counts),
         "examples": examples,
     }
+
+
+def _find_repo_root() -> Path:
+    candidates = [Path.cwd(), Path(__file__).resolve().parents[1], Path(__file__).resolve().parents[2]]
+    seen: set[Path] = set()
+
+    for candidate in candidates:
+        current = candidate.resolve()
+        while True:
+            if (current / "AGENTS.md").exists() and (current / "VISO").exists():
+                return current
+            if (current / "pyproject.toml").exists() and (current / "src").exists():
+                return current
+            if current in seen:
+                break
+            seen.add(current)
+            if current.parent == current:
+                break
+            current = current.parent
+
+    return candidates[0].resolve()
 
 
 def main() -> None:
@@ -1150,6 +1277,8 @@ def main() -> None:
     parser.add_argument("--use-frame-relative-water-threshold", action="store_true")
     parser.add_argument("--frame-relative-margin", type=float, default=26.0)
     parser.add_argument("--max-water-candidates-per-frame", type=int, default=0)
+    parser.add_argument("--keep-topk-candidates-per-frame", type=int, default=0)
+    parser.add_argument("--use-single-tip-selection", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--use-negative-bank", action="store_true")
     parser.add_argument("--negative-bank-margin", type=float, default=0.0)
     parser.add_argument("--negative-grid-step", type=int, default=32)
@@ -1171,11 +1300,12 @@ def main() -> None:
     parser.add_argument("--ramfd-max-aspect-ratio", type=float, default=10.0)
     parser.add_argument("--ramfd-clutter-active-ratio", type=float, default=0.95)
     parser.add_argument("--ramfd-clutter-dilate-kernel", type=int, default=1)
+    parser.add_argument("--ramfd-frame-step", type=int, default=1)
     parser.add_argument("--sheet-cols", type=int, default=5)
     parser.add_argument("--skip-render", action="store_true")
     args = parser.parse_args()
 
-    root = Path(__file__).resolve().parents[1]
+    root = _find_repo_root()
     ann_path = Path(args.annotations_path) if str(args.annotations_path).strip() else (root / "VISO" / "coco" / "ship" / "Annotations" / "instances_train2017.json")
     image_dir = Path(args.image_dir) if str(args.image_dir).strip() else (root / "VISO" / "coco" / "ship" / "train2017")
     eval_ann_path = Path(args.eval_annotations_path) if str(args.eval_annotations_path).strip() else None
@@ -1190,7 +1320,10 @@ def main() -> None:
     )
 
     payload = load_coco_annotations(ann_path)
-    images = sorted(payload["images"], key=lambda x: str(x.get("file_name", "")))[: int(args.max_images)]
+    images = sorted(payload["images"], key=lambda x: str(x.get("file_name", "")))
+    max_images = int(args.max_images)
+    if max_images > 0:
+        images = images[:max_images]
     selected = {int(i["id"]) for i in images}
     anns = [a for a in payload["annotations"] if int(a.get("image_id", -1)) in selected]
 
@@ -1237,8 +1370,8 @@ def main() -> None:
     if use_separate_eval:
         eval_payload = load_coco_annotations(eval_ann_path)
         eval_images = sorted(eval_payload["images"], key=lambda x: str(x.get("file_name", "")))
-        if int(args.max_images) > 0:
-            eval_images = eval_images[: int(args.max_images)]
+        if max_images > 0:
+            eval_images = eval_images[:max_images]
         eval_selected = {int(i["id"]) for i in eval_images}
         eval_anns = [a for a in eval_payload["annotations"] if int(a.get("image_id", -1)) in eval_selected]
         eval_category_id = int(eval_anns[0].get("category_id", category_id)) if eval_anns else category_id
@@ -1272,7 +1405,13 @@ def main() -> None:
         if len(eval_usable) < 4:
             raise RuntimeError("Not enough usable evaluation images")
 
-        train_idx = list(range(len(usable)))
+        train_idx, val_idx = _make_train_val_indices(
+            n=len(usable),
+            train_ratio=float(args.train_ratio),
+            val_ratio=float(args.val_ratio),
+        )
+        if len(train_idx) < 1 or len(val_idx) < 1:
+            raise RuntimeError("The train/validation split must contain at least one image per split")
         test_idx = list(range(len(eval_usable)))
     else:
         n = len(usable)
@@ -1374,6 +1513,7 @@ def main() -> None:
             clutter_edge_percentile=75.0,
             use_dark_water_gate=False,
             water_intensity_percentile=60.0,
+            frame_step=int(args.ramfd_frame_step),
         )
 
         gt_overlap_thresholds, gt_overlap_diag = _thresholds_from_train_gt_overlap(
@@ -1393,7 +1533,24 @@ def main() -> None:
         if gt_overlap_thresholds:
             adaptive_thresholds = [float(x) for x in gt_overlap_thresholds]
 
-    per_frame = _ramfd_components(
+    train_per_frame = _ramfd_components(
+        gray_frames,
+        k=float(args.ramfd_k),
+        min_area=int(args.ramfd_min_area),
+        max_area=int(args.ramfd_max_area),
+        min_aspect_ratio=float(args.ramfd_min_aspect_ratio),
+        max_aspect_ratio=float(args.ramfd_max_aspect_ratio),
+        clutter_active_ratio=float(args.ramfd_clutter_active_ratio),
+        clutter_dilate_kernel=int(args.ramfd_clutter_dilate_kernel),
+        use_tile_adaptive_threshold=False,
+        tile_size=64,
+        clutter_require_static_edge=False,
+        clutter_edge_percentile=75.0,
+        use_dark_water_gate=False,
+        water_intensity_percentile=60.0,
+        frame_step=int(args.ramfd_frame_step),
+    )
+    eval_per_frame = _ramfd_components(
         eval_gray_frames,
         k=float(args.ramfd_k),
         min_area=int(args.ramfd_min_area),
@@ -1408,6 +1565,7 @@ def main() -> None:
         clutter_edge_percentile=75.0,
         use_dark_water_gate=False,
         water_intensity_percentile=60.0,
+        frame_step=int(args.ramfd_frame_step),
     )
 
     def evaluate_split(split_name: str, split_idx: List[int], render_frames: bool) -> Dict[str, Any]:
@@ -1427,14 +1585,32 @@ def main() -> None:
         prev_tip: Component | None = None
         prev_prev_tip: Component | None = None
 
+        split_context = _split_eval_context(
+            split_name=split_name,
+            train_images=usable,
+            train_gray_frames=gray_frames,
+            train_rgb_frames=rgb_frames,
+            eval_images=eval_usable,
+            eval_gray_frames=eval_gray_frames,
+            eval_rgb_frames=eval_rgb_frames,
+            train_anns_by_image=anns_by_image,
+            eval_anns_by_image=eval_anns_by_image,
+            train_category_id=category_id,
+            eval_category_id=eval_category_id,
+            train_per_frame=train_per_frame,
+            eval_per_frame=eval_per_frame,
+            train_image_dir=image_dir,
+            eval_image_dir=eval_image_dir,
+        )
+
         for i in split_idx:
-            image_id = int(eval_usable[i]["id"])
-            file_name = str(eval_usable[i]["file_name"])
-            gt_items = eval_anns_by_image.get(image_id, [])
+            image_id = int(split_context["images"][i]["id"])
+            file_name = str(split_context["images"][i]["file_name"])
+            gt_items = split_context["anns_by_image"].get(image_id, [])
             gt_boxes = [list(map(float, g["bbox"])) for g in gt_items]
             gt_items_for_split.extend(gt_items)
 
-            comps = per_frame.get(i, [])
+            comps = split_context["per_frame"].get(i, [])
             raw_boxes: List[List[float]] = []
             water_candidates: List[Dict[str, Any]] = []
 
@@ -1444,7 +1620,7 @@ def main() -> None:
                 pred_raw.append({"image_id": image_id, "category_id": eval_category_id, "bbox": box, "score": 0.95})
 
                 water_sample = _feature_vector_around_bbox(
-                    rgb_image=eval_rgb_frames[i],
+                    rgb_image=split_context["rgb_frames"][i],
                     bbox=box,
                     margin=int(args.water_margin),
                     feature_mode=str(args.water_feature_mode),
@@ -1482,7 +1658,7 @@ def main() -> None:
             )
             if len(raw_boxes) < 2 or not has_raw_overlap:
                 fallback_boxes = _tiny_object_fallback_boxes(
-                    gray_frames=eval_gray_frames,
+                    gray_frames=split_context["gray_frames"],
                     frame_idx=i,
                     prev_boxes=prev_tiny_boxes,
                     max_candidates=4,
@@ -1490,7 +1666,7 @@ def main() -> None:
                 tracked_boxes = _track_tiny_candidates(
                     prev_boxes=prev_tiny_boxes,
                     current_boxes=fallback_boxes,
-                    gray_frames=eval_gray_frames,
+                    gray_frames=split_context["gray_frames"],
                     frame_idx=i,
                     max_candidates=4,
                 )
@@ -1498,7 +1674,7 @@ def main() -> None:
                     raw_boxes.append(box)
                     pred_raw.append({"image_id": image_id, "category_id": eval_category_id, "bbox": box, "score": 0.95})
                     water_sample = _feature_vector_around_bbox(
-                        rgb_image=eval_rgb_frames[i],
+                        rgb_image=split_context["rgb_frames"][i],
                         bbox=box,
                         margin=int(args.water_margin),
                         feature_mode=str(args.water_feature_mode),
@@ -1603,7 +1779,14 @@ def main() -> None:
             if selected_tip is None and traj_comps:
                 selected_tip = max(traj_comps, key=lambda c: float(c.area))
 
-            kept_boxes = [_box_from_component(selected_tip)] if selected_tip is not None else []
+            kept_boxes = _select_final_boxes(
+                water_boxes=payload_i["water_boxes"],
+                trajectory_comps=traj_comps,
+                prev_tip=prev_tip,
+                prev_prev_tip=prev_prev_tip,
+                keep_topk_candidates_per_frame=int(args.keep_topk_candidates_per_frame),
+                use_single_tip_selection=bool(args.use_single_tip_selection),
+            )
             for box in kept_boxes:
                 pred_filtered.append({"image_id": image_id, "category_id": eval_category_id, "bbox": box, "score": 0.95})
 
@@ -1621,7 +1804,7 @@ def main() -> None:
                 prev_tip = selected_tip
 
             if render_frames and not bool(args.skip_render):
-                img_path = eval_image_dir / file_name if use_separate_eval else (image_dir / file_name)
+                img_path = split_context["image_dir"] / file_name
                 out_img = split_frames_dir / f"{i:03d}_{Path(file_name).stem}.png"
                 _draw_frame(
                     image_path=img_path,
